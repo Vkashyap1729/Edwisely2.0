@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import SideNavbarWithHeader from '../components/SideNavbarWithHeader'
 
 const TestElement = (props) => {
   const [data, setData] = useState(null)
@@ -18,14 +19,15 @@ const TestElement = (props) => {
   }, [])
 
   return (
-    <>
-      <Typography
-        variant="body5"
-        sx={{ color: (theme) => theme.palette.primary.dark }}
-      >
-        Hello
-      </Typography>
-    </>
+    // <>
+    //   <Typography
+    //     variant="body5"
+    //     sx={{ color: (theme) => theme.palette.primary.dark }}
+    //   >
+    //     Hello
+    //   </Typography>
+    // </>
+    <SideNavbarWithHeader />
   )
 }
 
