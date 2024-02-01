@@ -1,4 +1,4 @@
-import { AppBar, Box, Drawer, Stack } from '@mui/material'
+import { AppBar, Box, Divider, Drawer, Stack } from '@mui/material'
 
 const drawerWidth = 80
 
@@ -15,6 +15,7 @@ const SideNavbarWithHeader = ({ children }) => {
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          height: '80px',
         }}
       >
         MainHeader
