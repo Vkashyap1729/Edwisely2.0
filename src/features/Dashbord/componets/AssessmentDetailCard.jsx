@@ -13,16 +13,17 @@ const AssessmentDetailCard = ({
   return (
     <Box
       sx={{
-        height: {
-          sm: '80px', // Height for small screens
-          md: '70px', // Height for medium screens
-          lg: '60px', // Height for large screens
-          xl: '60px',
-        },
-        minHeight: '60px',
+        // height: {
+        //   sm: '80px', // Height for small screens
+        //   md: '70px', // Height for medium screens
+        //   lg: '60px', // Height for large screens
+        //   xl: '60px',
+        // },
+        // minHeight: '60px',
+        height: '80px',
         minWidth: '100px',
         width: '100%',
-        maxWidth: '200px',
+        maxWidth: '230px',
         borderRadius: '10px',
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
         padding: '8px 8px 8px 8px',

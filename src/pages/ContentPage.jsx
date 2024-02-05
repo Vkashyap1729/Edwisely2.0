@@ -1,4 +1,4 @@
 const ContentPage = () => {
-  return <div>ContentPage</div>
+  return <div>ContentPsge</div>
 }
 export default ContentPage
