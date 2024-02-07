@@ -39,6 +39,7 @@ const CoursePage = () => {
         sx={{
           width: '100%',
           height: '100%',
+          padding: '0 20px 0 0',
         }}
       >
         <CourseHeader name={name} tag={tag} percentage={percentage} />

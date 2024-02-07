@@ -2,7 +2,6 @@ import { Box, Stack, Typography } from '@mui/material'
 import OneCourses from '../../assets/svg/OneCourses'
 import ArrowInCard from '../../assets/svg/ArrowInCard'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
 const UnitsCard = (props) => {
   const navigate = useNavigate()
   const { name, url } = { ...props }
@@ -12,19 +11,21 @@ const UnitsCard = (props) => {
   return (
     <Box
       sx={{
-        minWidth: '120px',
-        maxWidth: '285px',
+        minWidth: '150px',
+        width: '100%',
+        maxWidth: '300px',
       }}
     >
-      <div onClick={() => handelClickOnUnitCard(url)}>
+      <div onClick={() => handelClickOnUnitCard(url)} className="isClickable">
         <Stack
           direction={'row'}
+          spacing={'15px'}
           sx={{
             minWidth: '120px',
-            maxWidth: '285px',
-            padding: '10px 27px 10px 10px',
+            width: '100%',
+            maxWidth: '300px',
+            padding: '10px 10px 10px 10px',
             alignItems: 'center',
-            gap: '15px',
             borderRadius: '10px',
             border: '1px solid #F4F6F8',
             background: '#FFF',
@@ -34,22 +35,14 @@ const UnitsCard = (props) => {
           <Stack
             alignItems={'center'}
             sx={{
-              // width: '30px',
-              // height: '30px',
               borderRadius: '5px',
               background: '#DFE3E8',
               padding: '15px',
-              gap: '10px',
             }}
           >
             <OneCourses />
           </Stack>
-          <Stack
-            direction={'row'}
-            justifyContent={'space-between'}
-            alignItems={'center'}
-            width={'135px'}
-          >
+          <Stack direction={'row'} alignItems={'center'}>
             <Typography
               sx={{
                 color: '#161C24',
@@ -59,16 +52,14 @@ const UnitsCard = (props) => {
                 fontStyle: 'normal',
                 fontWeight: 300,
                 lineHeight: 'normal',
-                minWidth: '120px',
                 width: '100%',
-                maxWidth: '285px',
+                maxWidth: '137px',
               }}
             >
               {name}
             </Typography>
-
-            <ArrowInCard />
           </Stack>
+          <ArrowInCard />
         </Stack>
       </div>
     </Box>
