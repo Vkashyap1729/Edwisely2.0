@@ -99,6 +99,7 @@ const Units = (props) => {
       <Box
         sx={{
           marginBottom: '42px',
+          height: '100%',
         }}
       >
         {Object.entries(units[idx].topics).map((item) => {

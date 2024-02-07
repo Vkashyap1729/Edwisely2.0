@@ -16,11 +16,11 @@ const CoursePage = () => {
   const dispatch = useDispatch()
   const { courseData, loading, error } = useSelector((state) => state.course)
   useEffect(() => {
+    window.scrollTo(0, 0)
     dispatch(fetchData(url))
   }, [dispatch])
   const { name1, email, profile_picture } = useSelector((state) => state.user)
   const { data } = { ...courseData }
-  const [courseName, setCourseName] = useState('')
   if (data == null) return null
   const { name, tag, percentage, description, continue_reading, units } = {
     ...data,
@@ -35,7 +35,12 @@ const CoursePage = () => {
       email={email}
       profile_picture={profile_picture}
     >
-      <Box height={'100vh'}>
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+        }}
+      >
         <CourseHeader name={name} tag={tag} percentage={percentage} />
         <CourseDescription description={description} />
         <Box sx={{ marginTop: '40px', marginLeft: '56px' }}>
@@ -52,7 +57,7 @@ const CoursePage = () => {
             Continue reading
           </Typography>
           <DisplayUnitsCard continue_reading={continue_reading} />
-          <Box>
+          <Box height={'100%'}>
             <Box display={'flex'}>
               <Typography
                 sx={{
