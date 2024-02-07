@@ -1,4 +1,4 @@
-const LogoutIcon = () => {
+const LogoutIcon = ({ stroke }) => {
   return (
     <>
       <svg
@@ -10,7 +10,7 @@ const LogoutIcon = () => {
       >
         <path
           d="M17.44 14.62L20 12.06L17.44 9.5"
-          stroke="#919EAB"
+          stroke={stroke}
           stroke-width="1.5"
           stroke-miterlimit="10"
           stroke-linecap="round"
@@ -18,7 +18,7 @@ const LogoutIcon = () => {
         />
         <path
           d="M9.76001 12.0601H19.93"
-          stroke="#919EAB"
+          stroke={stroke}
           stroke-width="1.5"
           stroke-miterlimit="10"
           stroke-linecap="round"
@@ -26,7 +26,7 @@ const LogoutIcon = () => {
         />
         <path
           d="M11.76 20C7.34001 20 3.76001 17 3.76001 12C3.76001 7 7.34001 4 11.76 4"
-          stroke="#919EAB"
+          stroke={stroke}
           stroke-width="1.5"
           stroke-miterlimit="10"
           stroke-linecap="round"

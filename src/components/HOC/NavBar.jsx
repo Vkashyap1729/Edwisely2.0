@@ -4,17 +4,16 @@ import CoursesIcon from '../../assets/svg/CoursesIcon'
 import LogoutIcon from '../../assets/svg/LogoutIcon'
 import { useLocation, useNavigate } from 'react-router'
 import { Stack, Box } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const NavBar = () => {
+  const [dashboardStroke, setDashboardStroke] = useState('#919EAB')
+  const [dashboardFill, setDashboardFill] = useState('')
+  const [courseStroke, setCourseStroke] = useState('#919EAB')
+  const [courseFill, setCourseFill] = useState('')
+  const [logoutStroke, setLogoutStroke] = useState('#919EAB')
   const navigate = useNavigate()
   const location = useLocation()
-  const [stroke, setstroke] = useState('#0B58F5')
-  const [fill, setFill] = useState('#CEDEFD')
-  // if (location.pathname != '/dashboard') {
-  //   setFill('')
-  //   setstroke('')
-  // }
   const handelLogoClick = () => {
     window.location.reload()
   }
@@ -22,8 +21,22 @@ const NavBar = () => {
     navigate('/dashboard')
   }
   const handelCourseIconClick = () => {
-    window.history.back()
+    if (/^\/content\/.*/.test(location.pathname)) {
+      window.history.back()
+    }
   }
+  const handelLogout = () => {}
+  useEffect(() => {
+    if (location.pathname === '/dashboard') {
+      setDashboardStroke('#0B58F5')
+      setDashboardFill('#CEDEFD')
+    }
+    if (/^\/course\/.*/.test(location.pathname)) {
+      setCourseStroke('#0B58F5')
+      setCourseFill('#CEDEFD')
+    }
+  }, [handelDashBordIconClick, handelCourseIconClick])
+
   return (
     <Stack
       justifyContent={'space-between'}
@@ -44,23 +57,39 @@ const NavBar = () => {
         <Box
           onClick={handelDashBordIconClick}
           className="isClickable"
-          // onMouseEnter={() => {
-          //   setFill('none')
-          //   setstroke('')
-          // }}
-          // onMouseLeave={() => {
-          //   setFill('#CEDEFD')
-          //   setstroke('#0B58F5')
-          // }}
+          onMouseEnter={() => {
+            setDashboardStroke('#454F5B')
+          }}
+          onMouseLeave={() => {
+            setDashboardStroke('#919EAB')
+          }}
         >
-          <DashboardIcon fill={fill} stroke={stroke} />
+          <DashboardIcon stroke={dashboardStroke} fill={dashboardFill} />
         </Box>
-        <Box onClick={handelCourseIconClick} className="isClickable">
-          <CoursesIcon />
+        <Box
+          onClick={handelCourseIconClick}
+          className="isClickable"
+          onMouseEnter={() => {
+            setCourseStroke('#454F5B')
+          }}
+          onMouseLeave={() => {
+            setCourseStroke('#919EAB')
+          }}
+        >
+          <CoursesIcon stroke={courseStroke} fill={courseFill} />
         </Box>
       </Stack>
-      <Box className="isClickable">
-        <LogoutIcon />
+      <Box
+        className="isClickable"
+        onClick={handelLogout}
+        onMouseEnter={() => {
+          setLogoutStroke('#637381')
+        }}
+        onMouseLeave={() => {
+          setLogoutStroke('#919EAB')
+        }}
+      >
+        <LogoutIcon stroke={logoutStroke} />
       </Box>
     </Stack>
   )

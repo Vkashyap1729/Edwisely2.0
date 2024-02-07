@@ -1,4 +1,4 @@
-const DashboardIcon = ({ stroke }, { fill = '#CEDEFD' }) => {
+const DashboardIcon = ({ stroke, fill }) => {
   return (
     <div>
       <svg
