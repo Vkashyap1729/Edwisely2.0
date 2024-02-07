@@ -54,11 +54,17 @@ const DashBoardPage = () => {
     >
       <Typography>Dashboard</Typography>
       <DisplayAssessmentDetailCard analytics={analytics} />
-      <Stack direction={'row'}>
+      <Stack
+        direction={'row'}
+        justifyContent={'space-between'}
+        spacing={'22px'}
+        sx={{
+          padding: '28px 20px 20px 20px',
+        }}
+      >
         <Stack
           sx={{
             width: 'calc(100% - 319px)',
-            padding: '28px 20px 20px 20px',
           }}
         >
           <MuiCustomBarGraph recent_assessments={recent_assessments} />
