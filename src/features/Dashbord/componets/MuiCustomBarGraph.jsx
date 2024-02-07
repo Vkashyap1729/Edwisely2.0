@@ -1,7 +1,15 @@
-import * as React from 'react'
-import { Typography, Stack, Box } from '@mui/material'
+import {
+  Typography,
+  Stack,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@mui/material'
 import RedColor from '../../../assets/svg/RedColor'
 import BlueColor from '../../../assets/svg/BlueColor'
+import { useState } from 'react'
 import {
   Bar,
   BarChart,
@@ -37,10 +45,17 @@ const CustomizedLabel = ({ x, y, value }) => {
   )
 }
 
-const MuiCustomBarGraph = (analysis) => {
-  const obj = { ...analysis }
-  const data = obj.analysis
-
+const MuiCustomBarGraph = (recent_assessments) => {
+  const obj = { ...recent_assessments }
+  const data = obj.recent_assessments
+  const subject = data?.subjects.map((item) => item.name)
+  const [subjectSelected, setSubjectSelected] = useState('')
+  const [index, setIndex] = useState(0)
+  if (!data) return null
+  const handleSubjectSelectedChange = (event) => {
+    setSubjectSelected(subject[event.target.value])
+    setIndex(event.target.value)
+  }
   return (
     <>
       <Stack
@@ -57,12 +72,12 @@ const MuiCustomBarGraph = (analysis) => {
             lineHeight: '28px',
           }}
         >
-          Recent Assessments
+          {data.title}
         </Typography>
         <Stack direction={'row'} spacing={'18px'} alignItems={'center'}>
           <Stack direction={'row'} spacing={'5px'}>
             <Box>
-              <RedColor />
+              <BlueColor />
             </Box>
             <Typography
               sx={{
@@ -78,7 +93,7 @@ const MuiCustomBarGraph = (analysis) => {
           </Stack>
           <Stack direction={'row'} spacing={'5px'}>
             <Box>
-              <BlueColor />
+              <RedColor />
             </Box>
             <Typography
               sx={{
@@ -91,6 +106,25 @@ const MuiCustomBarGraph = (analysis) => {
             >
               Unattempted
             </Typography>
+
+            <FormControl sx={{ m: 1, width: 120 }} size="small">
+              <InputLabel id="demo-select-small-label">Subject</InputLabel>
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={subjectSelected}
+                label="subjectSelected"
+                onChange={handleSubjectSelectedChange}
+              >
+                {subject.map((sub, idx) => {
+                  return (
+                    <MenuItem value={idx} key={idx}>
+                      {sub}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
           </Stack>
         </Stack>
       </Stack>
@@ -107,7 +141,7 @@ const MuiCustomBarGraph = (analysis) => {
       </Typography>
       <ResponsiveContainer width={'100%'} height={300}>
         <BarChart
-          data={data}
+          data={data.subjects[index].tests}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid horizontal={true} vertical={false} />

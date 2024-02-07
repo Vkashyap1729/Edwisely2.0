@@ -7,11 +7,53 @@ import MuiCustomBarGraph from '../features/Dashbord/componets/MuiCustomBarGraph'
 import MuiCustomDatagrid from '../features/Dashbord/componets/MuiCustomDatagrid'
 import MuiCustomCalander from '../features/Dashbord/componets/MuiCustomCalander'
 import LeaderBoard from '../features/Dashbord/componets/LeaderBoard'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import {
+  setName,
+  setEmail,
+  setProfilePicture,
+} from '../store/reducers/HOC.reducer'
+import { fetchData } from '../store/actions/dashboard.action'
 const DashBoardPage = () => {
+  const dispatch = useDispatch()
+  const { dashBoardData, loading, error } = useSelector(
+    (state) => state.dashboard
+  )
+  useEffect(() => {
+    dispatch(fetchData())
+  }, [dispatch])
+
+  const {
+    name,
+    email,
+    profile_picture,
+    analytics,
+    recent_assessments,
+    leaderboard,
+    courses,
+  } = {
+    ...dashBoardData,
+  }
+
+  dispatch(setName({ name }))
+  dispatch(setEmail({ email }))
+  dispatch(setProfilePicture({ profile_picture }))
+
+  if (loading) {
+    return <>loading...</>
+  }
+  if (error) {
+    return <>error...</>
+  }
   return (
-    <SideNavbarWithHeader>
+    <SideNavbarWithHeader
+      name={name}
+      email={email}
+      profile_picture={profile_picture}
+    >
       <Typography>Dashboard</Typography>
-      <DisplayAssessmentDetailCard />
+      <DisplayAssessmentDetailCard analytics={analytics} />
       <Stack direction={'row'}>
         <Stack
           sx={{
@@ -19,7 +61,7 @@ const DashBoardPage = () => {
             padding: '28px 20px 20px 20px',
           }}
         >
-          <MuiCustomBarGraph />
+          <MuiCustomBarGraph recent_assessments={recent_assessments} />
           <MuiCustomDatagrid />
         </Stack>
         <Stack
@@ -27,12 +69,17 @@ const DashBoardPage = () => {
             width: '319px',
           }}
         >
-          <UserProfile />
+          <UserProfile
+            name={name}
+            email={email}
+            profile_picture={profile_picture}
+          />
           <MuiCustomCalander />
-          <LeaderBoard />
+          <LeaderBoard leaderboard={leaderboard} />
         </Stack>
       </Stack>
-      <DisplayCourseCards />
+      <Typography>Your courses</Typography>
+      <DisplayCourseCards courses={courses} />
     </SideNavbarWithHeader>
   )
 }

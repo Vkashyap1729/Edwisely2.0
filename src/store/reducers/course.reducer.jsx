@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  dashBoardData: [],
+  courseData: [],
   loading: false,
   error: null,
 }
 
-const dashboardSlice = createSlice({
-  name: 'dashboard',
+const courseSlice = createSlice({
+  name: 'course',
   initialState,
   reducers: {
     fetchDataRequest: (state) => {
@@ -16,7 +16,7 @@ const dashboardSlice = createSlice({
     },
     fetchDataSuccess: (state, action) => {
       state.loading = false
-      state.dashBoardData = action.payload
+      state.courseData = action.payload
     },
     fetchDataFailure: (state, action) => {
       state.loading = false
@@ -26,5 +26,5 @@ const dashboardSlice = createSlice({
 })
 
 export const { fetchDataRequest, fetchDataSuccess, fetchDataFailure } =
-  dashboardSlice.actions
-export default dashboardSlice.reducer
+  courseSlice.actions
+export default courseSlice.reducer

@@ -13,14 +13,13 @@ const AssessmentDetailCard = ({
   return (
     <Box
       sx={{
-        // height: {
-        //   sm: '80px', // Height for small screens
-        //   md: '70px', // Height for medium screens
-        //   lg: '60px', // Height for large screens
-        //   xl: '60px',
-        // },
-        // minHeight: '60px',
-        height: '80px',
+        height: {
+          sm: '80px', // Height for small screens
+          md: '70px', // Height for medium screens
+          lg: '60px', // Height for large screens
+          xl: '60px',
+        },
+        minHeight: '60px',
         minWidth: '100px',
         width: '100%',
         maxWidth: '230px',
@@ -38,6 +37,7 @@ const AssessmentDetailCard = ({
         <Stack
           direction="row"
           alignItems="center"
+          justifyContent={'space-around'}
           sx={{
             width: '44px',
             height: '44px',
@@ -46,7 +46,7 @@ const AssessmentDetailCard = ({
             padding: '10px',
           }}
         >
-          <Icon children={icon} fontSize={iconSize} />
+          {icon}
         </Stack>
 
         <Stack direction="column" justifyContent="center">

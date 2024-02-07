@@ -1,8 +1,10 @@
 import { Stack, useTheme, Box } from '@mui/material'
 import NavBar from './NavBar'
 import Header from './Header'
-const SideNavbarWithHeader = ({ children }) => {
+
+const SideNavbarWithHeader = ({ name, email, profile_picture, children }) => {
   const theme = useTheme()
+
   return (
     <Stack
       sx={{
@@ -19,7 +21,7 @@ const SideNavbarWithHeader = ({ children }) => {
           position: 'fixed',
           alignItems: 'center',
           justifyItems: 'center',
-          bgcolor: theme.palette.grey[200],
+          bgcolor: theme.palette.grey[100],
         }}
       >
         {/* side- navBar */}
@@ -34,7 +36,7 @@ const SideNavbarWithHeader = ({ children }) => {
         }}
       >
         {/* Main - Header */}
-        <Header />
+        <Header name={name} email={email} profile_picture={profile_picture} />
         <Box
           sx={{
             height: '1px',
@@ -46,4 +48,5 @@ const SideNavbarWithHeader = ({ children }) => {
     </Stack>
   )
 }
+
 export default SideNavbarWithHeader

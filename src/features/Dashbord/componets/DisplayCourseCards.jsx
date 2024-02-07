@@ -1,10 +1,11 @@
 import { Stack, Typography } from '@mui/material'
-import CourseCards from './CourseCards'
+import CourseCards from '../../../components/common/CourseCards'
 
-const DisplayCourseCards = () => {
+const DisplayCourseCards = ({ courses }) => {
+  const colors = ['#0B58F5', '#D89932', '#4ECD56', '#D89932']
+  const bgcolors = ['#E7EEFE', '#FFF0D8', '#EDFAEE', '#FFF0D8']
   return (
     <>
-      <Typography>Your courses</Typography>
       <Stack
         direction="row"
         spacing="22px"
@@ -12,10 +13,18 @@ const DisplayCourseCards = () => {
           padding: '28px 20px 20px 20px',
         }}
       >
-        <CourseCards />
-        <CourseCards />
-        <CourseCards />
-        <CourseCards />
+        {courses?.map((item, idx) => (
+          <>
+            <CourseCards
+              chipname={item.tag}
+              name={item.name}
+              color={colors[idx]}
+              bgcolor={bgcolors[idx]}
+              imgUrl={item.image}
+              index={idx}
+            />
+          </>
+        ))}
       </Stack>
     </>
   )

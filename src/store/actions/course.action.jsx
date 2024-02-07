@@ -3,15 +3,13 @@ import {
   fetchDataRequest,
   fetchDataSuccess,
   fetchDataFailure,
-} from '../reducers/dashboard.reducer'
+} from '../reducers/course.reducer'
 
-export const fetchData = () => {
+export const fetchData = (url) => {
   return async (dispatch) => {
     try {
       dispatch(fetchDataRequest())
-      const response = await axios.get(
-        'https://stagingstudentpython.edwisely.com/reactProject/dashboardData'
-      )
+      const response = await axios.get(url)
       dispatch(fetchDataSuccess(response.data))
     } catch (error) {
       dispatch(fetchDataFailure(error.message))

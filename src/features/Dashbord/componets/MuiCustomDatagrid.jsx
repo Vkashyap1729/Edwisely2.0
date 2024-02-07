@@ -1,12 +1,13 @@
-import * as React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import { Typography } from '@mui/material'
-import { useState, useEffect } from 'react'
-import { Box, Button } from '@mui/material'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { useState } from 'react'
+import { Box, IconButton } from '@mui/material'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import { useTheme } from '@emotion/react'
+import './MuiCustomDatagrid.css'
 
 const rows = [
   {
@@ -922,16 +923,16 @@ const columns = [
     field: 'subject',
     headerName: 'Subject',
     flex: 1,
-    // width: 150,
     sortable: true,
     disableColumnMenu: true,
+    headerClassName: 'custom-header',
   },
   {
     field: 'total_timespent',
     headerName: 'Total Time Spent',
     disableColumnMenu: true,
+    headerClassName: 'custom-header',
     flex: 1,
-    // width: 200,
     renderCell: (params) => {
       const timeSpent = params.value
       if (timeSpent !== null) {
@@ -945,25 +946,54 @@ const columns = [
   {
     field: 'submission_type',
     headerName: 'Submission Type',
+    headerClassName: 'custom-header',
     flex: 1,
-    // width: 150,
     sortable: true,
     disableColumnMenu: true,
+    renderCell: (params) => {
+      const type = params.value
+      if (type == 0) {
+      }
+      switch (type) {
+        case 1:
+          return 'Timeout'
+        case 2:
+          return 'Interupted'
+        case 3:
+          return 'On Submit'
+        case 4:
+          return 'Tabswitch'
+        default:
+          return 'Not Attempted'
+      }
+    },
   },
   {
     field: 'internet_speed',
     headerName: 'Internet Speed',
+    headerClassName: 'custom-header',
+
     flex: 1,
-    // width: 150,
     sortable: true,
     disableColumnMenu: true,
+    renderCell: (params) => {
+      const speed = params.value
+      if (speed >= 7) {
+        return 'High'
+      } else if (speed >= 4) {
+        return 'Medium'
+      } else {
+        return 'Low'
+      }
+    },
   },
 
   {
     field: 'rank',
     headerName: 'Rank',
+    headerClassName: 'custom-header',
+
     flex: 1,
-    // width: 150,
     sortable: true,
     disableColumnMenu: true,
     renderCell: (params) => {
@@ -985,8 +1015,9 @@ const columns = [
   {
     field: 'percentage_scored',
     headerName: 'Mark',
+    headerClassName: 'custom-header',
+
     flex: 1,
-    // width: 150,
     sortable: true,
     disableColumnMenu: true,
     renderCell: (params) => {
@@ -998,7 +1029,8 @@ const columns = [
 ]
 
 const MuiCustomDatagrid = () => {
-  const [semesterFilter, setSemesterFilter] = React.useState('')
+  const theme = useTheme()
+  const [semesterFilter, setSemesterFilter] = useState('')
   const getRowId = (row) => row.subject
   const filteredRows =
     semesterFilter === ''
@@ -1007,7 +1039,7 @@ const MuiCustomDatagrid = () => {
           (row) => row.semester === parseInt(semesterFilter, 10)
         )
 
-  const [page, setPage] = React.useState(1)
+  const [page, setPage] = useState(1)
   const rowsPerPage = 8
 
   const handleChangePage = (event, newPage) => {
@@ -1025,7 +1057,6 @@ const MuiCustomDatagrid = () => {
   const goBack = () => {
     setCurrentIndex((prevIndex) => Math.max(0, prevIndex - 1))
     setSemesterFilter(currentIndex - 1 == 0 ? '' : currentIndex - 1)
-    console.log(currentIndex - 1 == 0 ? '' : currentIndex - 1)
   }
 
   const goForward = () => {
@@ -1033,42 +1064,39 @@ const MuiCustomDatagrid = () => {
       Math.min(semesters.length - 1, prevIndex + 1)
     )
     setSemesterFilter(currentIndex + 1)
-    console.log(currentIndex + 1)
   }
-  //
-  console.log(filteredRows)
+
   return (
-    <Box>
-      <Stack direction={'row'} justifyContent={'space-between'}>
-        <Typography
-          sx={{
-            color: '#161C24',
-            fontSize: 20,
-            fontStyle: 'normal',
-            fontWeight: 500,
-            lineHeight: '28px', // Note: Ensure this works as expected
-          }}
-        >
-          Assessments
-        </Typography>
-
-        <Stack direction={'row'} alignItems={'center'}>
-          <Button onClick={goBack} disabled={currentIndex === 0}>
-            <ArrowBackIcon />
-          </Button>
-          <Box flexGrow={1} textAlign="center">
-            {semesters[currentIndex]}
-          </Box>
-          <Button
-            onClick={goForward}
-            disabled={currentIndex === semesters.length - 1}
+    <>
+      <>
+        <Stack direction={'row'} justifyContent={'space-between'}>
+          <Typography
+            sx={{
+              color: '#161C24',
+              fontSize: 20,
+              fontStyle: 'normal',
+              fontWeight: 500,
+              lineHeight: '28px',
+            }}
           >
-            <ArrowForwardIcon />
-          </Button>
-        </Stack>
-      </Stack>
+            Assessments
+          </Typography>
 
-      {/* Data Grid */}
+          <Stack direction={'row'} alignItems={'center'}>
+            <IconButton disabled={currentIndex === 0}>
+              <KeyboardArrowLeftIcon onClick={goBack} />
+            </IconButton>
+
+            <Box flexGrow={1} textAlign="center">
+              {semesters[currentIndex]}
+            </Box>
+            <IconButton disabled={currentIndex === semesters.length - 1}>
+              <KeyboardArrowRightIcon onClick={goForward} />
+            </IconButton>
+          </Stack>
+        </Stack>
+      </>
+
       <Box
         sx={{
           width: '100%',
@@ -1079,8 +1107,15 @@ const MuiCustomDatagrid = () => {
           rows={paginatedRows}
           columns={columns}
           pageSize={rowsPerPage}
+          getRowClassName={(params) => {
+            console.log('Row Params:', params)
+            if (params.row.submission_type === null) {
+              console.log('Adding class: not-attempted')
+              return 'not-attempted'
+            }
+            return ''
+          }}
           rowsPerPageOptions={[rowsPerPage]}
-          paginationMode="server"
           onSelectionModelChange={(selection) => console.log(selection)}
           disableSelectionOnClick
           autoHeight
@@ -1095,7 +1130,6 @@ const MuiCustomDatagrid = () => {
             ],
           }}
           onFilterModelChange={(model) => {
-            // Update semester filter when changed
             if (model.items.length > 0) {
               setSemesterFilter(model.items[0].value)
             } else {
@@ -1104,6 +1138,13 @@ const MuiCustomDatagrid = () => {
           }}
           getRowId={getRowId}
           hideFooter={true}
+          sx={{
+            bgcolor: theme.palette.primary[0],
+            border: 0,
+            '*:hover:not(.custom-header)': {
+              backgroundColor: 'transparent !important',
+            },
+          }}
         />
 
         <Stack spacing={2} justifyContent="center" alignItems="center" mt={2}>
@@ -1115,7 +1156,7 @@ const MuiCustomDatagrid = () => {
           />
         </Stack>
       </Box>
-    </Box>
+    </>
   )
 }
 

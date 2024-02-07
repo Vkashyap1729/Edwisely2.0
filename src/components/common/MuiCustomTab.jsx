@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Tab, Tabs, IconButton, Skeleton, Chip } from '@mui/material'
-import { EditIcon } from '../../assets/Svg/EditIcon'
+// import { EditIcon } from '../../assets/Svg/EditIcon'
 import { styled } from '@mui/material/styles'
 import MuiCustomChipCount from './MuiCustomChipCount'
 
@@ -34,9 +34,9 @@ export default function MuiCustomTab({ handleTabChange, value, data, edit }) {
       value={value}
       onChange={handleTabChange}
       TabIndicatorProps={{
-        children: <span className='MuiTabs-indicatorSpan' />,
+        children: <span className="MuiTabs-indicatorSpan" />,
       }}
-      aria-label='Tabs'
+      aria-label="Tabs"
     >
       {data?.map((part, index) => {
         return (
@@ -96,7 +96,7 @@ export default function MuiCustomTab({ handleTabChange, value, data, edit }) {
               padding: 0,
             },
           }}
-          label={<EditIcon />}
+          // label={<EditIcon />}
         />
       )}
     </CustomTab>
