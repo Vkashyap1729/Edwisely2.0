@@ -1,6 +1,6 @@
 import { Stack, Box, Typography } from '@mui/material'
 import SideNavbarWithHeader from '../components/HOC/SideNavbarWithHeader'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchData } from '../store/actions/course.action'
 import { useNavigate, useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,6 +20,7 @@ const CoursePage = () => {
   }, [dispatch])
   const { name1, email, profile_picture } = useSelector((state) => state.user)
   const { data } = { ...courseData }
+  const [courseName, setCourseName] = useState('')
   if (data == null) return null
   const { name, tag, percentage, description, continue_reading, units } = {
     ...data,

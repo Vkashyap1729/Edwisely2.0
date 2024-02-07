@@ -2,12 +2,13 @@ import { Box, Stack, Typography } from '@mui/material'
 import OneCourses from '../../assets/svg/OneCourses'
 import ArrowInCard from '../../assets/svg/ArrowInCard'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 const UnitsCard = (props) => {
   const navigate = useNavigate()
-  const handelClickOnUnitCard = (url) => {
-    navigate(`/content/${encodeURIComponent(url)}`)
-  }
   const { name, url } = { ...props }
+  const handelClickOnUnitCard = (url) => {
+    navigate(`/content/${encodeURIComponent(url)}/${name}`)
+  }
   return (
     <Box
       sx={{

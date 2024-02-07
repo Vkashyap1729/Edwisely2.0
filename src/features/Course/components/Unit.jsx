@@ -23,8 +23,8 @@ const Units = (props) => {
     setClickedIndex(index)
   }
   const navigate = useNavigate()
-  const handelTopicClick = (url) => {
-    navigate(`/content/${encodeURIComponent(url)}`)
+  const handelTopicClick = (url, name) => {
+    navigate(`/content/${encodeURIComponent(url)}/${name}`)
   }
   return (
     <Box
@@ -132,7 +132,9 @@ const Units = (props) => {
                         direction={'row'}
                         spacing={'10px'}
                         alignItems={'center'}
-                        onClick={() => handelTopicClick(material.url)}
+                        onClick={() => {
+                          handelTopicClick(material.url, material.name)
+                        }}
                         className="isClickable"
                       >
                         <Typography>Start</Typography>
