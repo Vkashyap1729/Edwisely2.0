@@ -26,6 +26,11 @@ const Units = (props) => {
   const handelTopicClick = (url, name) => {
     navigate(`/content/${encodeURIComponent(url)}/${name}`)
   }
+  const [searchInput, setSearchInput] = useState('')
+
+  const handleSearchInputChange = (event) => {
+    setSearchInput(event.target.value)
+  }
   return (
     <Box
       sx={{
@@ -81,6 +86,8 @@ const Units = (props) => {
           <InputBase
             placeholder="Search topics"
             startAdornment={<Search />}
+            value={searchInput}
+            onChange={handleSearchInputChange}
             sx={{
               borderRadius: '6.64px',
               border: '1px solid #F4F6F8',
@@ -102,7 +109,7 @@ const Units = (props) => {
           height: '100%',
         }}
       >
-        {Object.entries(units[idx].topics).map((item) => {
+        {/* {Object.entries(units[idx].topics).map((item) => {
           return (
             <Accordion>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -147,6 +154,59 @@ const Units = (props) => {
               </AccordionDetails>
             </Accordion>
           )
+        })} */}
+        {Object.entries(units[idx].topics).map((item) => {
+          // Filter accordion summaries based on search input
+          if (
+            item[1].topic_name.toLowerCase().includes(searchInput.toLowerCase())
+          ) {
+            return (
+              <Accordion key={item[0]}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  {item[1].topic_name}
+                </AccordionSummary>
+                <AccordionDetails>
+                  {item[1].materials.map((material) => {
+                    return (
+                      <Stack
+                        key={material.url}
+                        direction={'row'}
+                        justifyContent={'space-between'}
+                        alignItems={'center'}
+                      >
+                        <Stack
+                          direction={'row'}
+                          spacing={'9px'}
+                          alignItems={'center'}
+                        >
+                          <img
+                            src={documentImg}
+                            alt="document-svg "
+                            width={'16px'}
+                            height={'16px'}
+                          />
+                          <Typography>{material.name}</Typography>
+                        </Stack>
+                        <Stack
+                          direction={'row'}
+                          spacing={'10px'}
+                          alignItems={'center'}
+                          onClick={() => {
+                            handelTopicClick(material.url, material.name)
+                          }}
+                          className="isClickable"
+                        >
+                          <Typography>Start</Typography>
+                          <ArrowForwardIcon />
+                        </Stack>
+                      </Stack>
+                    )
+                  })}
+                </AccordionDetails>
+              </Accordion>
+            )
+          }
+          return null
         })}
       </Box>
     </Box>
