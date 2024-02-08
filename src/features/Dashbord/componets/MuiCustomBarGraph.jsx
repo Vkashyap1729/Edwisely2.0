@@ -51,6 +51,7 @@ const MuiCustomBarGraph = (recent_assessments) => {
   const subject = data?.subjects.map((item) => item.name)
   const [subjectSelected, setSubjectSelected] = useState('')
   const [index, setIndex] = useState(0)
+
   if (!data) return null
   const handleSubjectSelectedChange = (event) => {
     setSubjectSelected(subject[event.target.value])

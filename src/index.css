@@ -7,3 +7,15 @@ body {
 .isClickable:hover {
   cursor: pointer;
 }
+
+.rpv-thumbnail__item--selected {
+  border: 4px solid #9ebdfa !important;
+  background: white !important;
+}
+
+.rpv-thumbnail__item {
+  background: white !important;
+}
+.rpv-thumbnail__item--single {
+  background: white !important;
+}

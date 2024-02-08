@@ -40,12 +40,9 @@ const DashBoardPage = () => {
   dispatch(setEmail({ email }))
   dispatch(setProfilePicture({ profile_picture }))
 
-  if (loading) {
-    return <>loading...</>
-  }
-  if (error) {
-    return <>error...</>
-  }
+  // if (loading) {
+  //   return <>loading...</>
+  // }
   return (
     <SideNavbarWithHeader
       name={name}
@@ -53,7 +50,11 @@ const DashBoardPage = () => {
       profile_picture={profile_picture}
     >
       <Typography>Dashboard</Typography>
-      <DisplayAssessmentDetailCard analytics={analytics} />
+      <DisplayAssessmentDetailCard
+        analytics={analytics}
+        loading={loading}
+        error={error}
+      />
       <Stack
         direction={'row'}
         justifyContent={'space-between'}

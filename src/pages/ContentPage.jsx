@@ -1,5 +1,4 @@
-import React from 'react'
-import { Stack, Box, Typography, Button } from '@mui/material'
+import { Stack, Box, Typography } from '@mui/material'
 import {
   Worker,
   Viewer,
@@ -26,11 +25,12 @@ import {
 import { RenderRotateProps, rotatePlugin } from '@react-pdf-viewer/rotate'
 import {
   pageNavigationPlugin,
-  RenderGoToPageProps,
   RenderCurrentPageLabelProps,
-  NumberOfPages,
 } from '@react-pdf-viewer/page-navigation'
 import { useEffect } from 'react'
+import { thumbnailPlugin } from '@react-pdf-viewer/thumbnail'
+import '@react-pdf-viewer/core/lib/styles/index.css'
+import '@react-pdf-viewer/thumbnail/lib/styles/index.css'
 const ContentPage = () => {
   useEffect(() => {
     document.documentElement.scrollTop = 0
@@ -42,9 +42,6 @@ const ContentPage = () => {
   const { url, courseName } = useParams()
   const pdfUrl = decodeURIComponent(url)
   const pdfCourseName = decodeURIComponent(courseName)
-  console.log(pdfCourseName)
-  console.log('the url is ', pdfUrl)
-
   const zoomPluginInstance = zoomPlugin()
   const { CurrentScale, ZoomIn, ZoomOut } = zoomPluginInstance
   const fullScreenPluginInstance = fullScreenPlugin()
@@ -52,16 +49,16 @@ const ContentPage = () => {
   const rotatePluginInstance = rotatePlugin()
   const { Rotate } = rotatePluginInstance
   const pageNavigationPluginInstance = pageNavigationPlugin()
-
-  const { CurrentPageInput, CurrentPageLabel, NumberOfPages } =
-    pageNavigationPluginInstance
+  const thumbnailPluginInstance = thumbnailPlugin()
+  const { Thumbnails } = thumbnailPluginInstance
+  const { CurrentPageLabel } = pageNavigationPluginInstance
 
   return (
     <SideNavbarWithHeader>
       <Stack
-        spacing={1}
         sx={{
           height: '56px',
+          boxShadow: '10px 10px 32px 0px #1616160A',
         }}
       >
         <Stack
@@ -72,110 +69,142 @@ const ContentPage = () => {
             alignItems: 'center',
           }}
         >
-          <Stack direction={'row'} spacing={2}>
-            <ArrowBackIcon onClick={handleGoBack} />
+          <Stack direction={'row'} spacing={'32px'}>
+            <Box onClick={handleGoBack} className="isClickable">
+              <ArrowBackIcon />
+            </Box>
             <Typography>{pdfCourseName}</Typography>
           </Stack>
-          <Stack direction={'row'} spacing={2}>
-            <Typography>
-              <CurrentPageLabel>
-                {(props: RenderCurrentPageLabelProps) => (
-                  <span>{`${props.currentPage + 1} of ${
-                    props.numberOfPages
-                  }`}</span>
-                )}
-              </CurrentPageLabel>
-            </Typography>
+          <Stack direction={'row'}>
+            <Box
+              sx={{
+                padding: '0 24px 0 24px',
+                display: 'flex',
+                alignContent: 'center',
+                justifyContent: 'space-around',
+              }}
+            >
+              <Typography>
+                <CurrentPageLabel>
+                  {(props: RenderCurrentPageLabelProps) => (
+                    <Stack
+                      direction={'row'}
+                      spacing={'8px'}
+                      sx={{
+                        padding: '0 24px 0 24px',
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-around',
+                          width: '24px',
+                          height: '24px',
+                          padding: '8px 7px 8px 7px',
+                          bgcolor: '#F4F6F8',
+                        }}
+                      >
+                        {props.currentPage + 1}
+                      </Box>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-around',
+                          width: '24px',
+                          height: '24px',
+                          padding: '8px 7px 8px 7px',
+                        }}
+                      >
+                        /
+                      </Box>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-around',
+                          width: '24px',
+                          height: '24px',
+                          padding: '8px 7px 8px 7px',
+                        }}
+                      >
+                        {props.numberOfPages}
+                      </Box>
+                    </Stack>
+                  )}
+                </CurrentPageLabel>
+              </Typography>
+            </Box>
             <Box
               sx={{
                 borderLeft: '1px solid #BDBDC7',
                 borderRight: '1px solid #BDBDC7',
+                height: '24px',
               }}
             >
               <Stack
                 direction={'row'}
-                spacing={3}
+                spacing={'16px'}
                 sx={{
-                  paddingLeft: 2,
-                  paddingRight: 2,
+                  padding: '0 24px 0 24px',
                 }}
               >
                 <ZoomOut>
                   {(props: RenderZoomOutProps) => (
-                    <button
-                      style={{
-                        backgroundColor: '#357edd',
-                        border: 'none',
-                        borderRadius: '4px',
-                        color: '#ffffff',
-                        cursor: 'pointer',
-                        padding: '8px',
-                      }}
-                      onClick={props.onClick}
-                    >
-                      Zoom out
-                    </button>
+                    <Box onClick={props.onClick} className="isClickable">
+                      <Minus />
+                    </Box>
                   )}
                 </ZoomOut>
-                <Typography>
-                  <CurrentScale>
-                    {(props: RenderCurrentScaleProps) => (
-                      <>{`${Math.round(props.scale * 100)}%`}</>
-                    )}
-                  </CurrentScale>
-                </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    bgcolor: '#F4F6F8',
+                    padding: '8px 7px 8px 7px',
+                    width: '51px',
+                    height: '24px',
+                  }}
+                >
+                  <Typography>
+                    <CurrentScale>
+                      {(props: RenderCurrentScaleProps) => (
+                        <>{`${Math.round(props.scale * 100)}%`}</>
+                      )}
+                    </CurrentScale>
+                  </Typography>
+                </Box>
                 <ZoomIn>
                   {(props: RenderZoomInProps) => (
-                    <button
-                      style={{
-                        backgroundColor: '#357edd',
-                        border: 'none',
-                        borderRadius: '4px',
-                        color: '#ffffff',
-                        cursor: 'pointer',
-                        padding: '8px',
-                      }}
-                      onClick={props.onClick}
-                    >
-                      Zoom in
-                    </button>
+                    <Box onClick={props.onClick} className="isClickable">
+                      <Plus />
+                    </Box>
                   )}
                 </ZoomIn>
               </Stack>
             </Box>
-            <Stack direction={'row'} spacing={3}>
+            <Stack
+              direction={'row'}
+              spacing={'16px'}
+              sx={{
+                padding: '0 24px 0 24px',
+              }}
+            >
               <EnterFullScreen>
                 {(props: RenderEnterFullScreenProps) => (
-                  <button
-                    style={{
-                      backgroundColor: '#357edd',
-                      border: 'none',
-                      borderRadius: '4px',
-                      color: '#ffffff',
-                      cursor: 'pointer',
-                      padding: '8px',
-                    }}
-                    onClick={props.onClick}
-                  >
-                    Enter fullscreen
-                  </button>
+                  <Box onClick={props.onClick} className="isClickable">
+                    <ExpandPdf />
+                  </Box>
                 )}
               </EnterFullScreen>
               <Rotate direction={RotateDirection.Forward}>
                 {(props: RenderRotateProps) => (
-                  <button
-                    style={{
-                      backgroundColor: '#357edd',
-                      border: 'none',
-                      borderRadius: '4px',
-                      color: '#ffffff',
-                      cursor: 'pointer',
-                      padding: '8px',
-                    }}
-                    onClick={props.onClick}
-                  >
-                    Rotate forward
-                  </button>
+                  <Box className="isClickable" onClick={props.onClick}>
+                    <Rotatepdf />
+                  </Box>
                 )}
               </Rotate>
             </Stack>
@@ -183,15 +212,32 @@ const ContentPage = () => {
           <Box></Box>
         </Stack>
       </Stack>
-      <Box
-        sx={{
-          width: '100%',
-          height: 'calc(100vh - 56px)',
-          overflow: 'auto',
-        }}
-      >
-        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-          <Box height={'100%'}>
+
+      <Stack direction={'row'} justifyContent={'space-between'}>
+        <Box></Box>
+        <Box
+          sx={{
+            flex: 1,
+            maxWidth: '415px',
+            width: '100%',
+            height: '588px',
+            position: 'relative',
+            overflow: 'auto',
+            margin: '21px',
+          }}
+        >
+          <Box
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: '20px', // Adjust the width to match the scrollbar width
+              background: 'white', // Set the background color to match the container background
+              zIndex: 1, // Make sure the overlay is above the scrollbar
+            }}
+          />
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
             <Viewer
               fileUrl={pdfUrl}
               plugins={[
@@ -199,12 +245,36 @@ const ContentPage = () => {
                 fullScreenPluginInstance,
                 rotatePluginInstance,
                 pageNavigationPluginInstance,
+                thumbnailPluginInstance,
               ]}
               defaultScale={SpecialZoomLevel.PageFit}
             />
-          </Box>
-        </Worker>
-      </Box>
+          </Worker>
+        </Box>
+        <Box
+          sx={{
+            maxWidth: '150px',
+            width: '100%',
+            height: '588px',
+            overflow: 'auto',
+            position: 'relative',
+            margin: '32px',
+          }}
+        >
+          <Box
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: '20px', // Adjust the width to match the scrollbar width
+              background: 'white', // Set the background color to match the container background
+              zIndex: 1, // Make sure the overlay is above the scrollbar
+            }}
+          />
+          <Thumbnails />
+        </Box>
+      </Stack>
     </SideNavbarWithHeader>
   )
 }

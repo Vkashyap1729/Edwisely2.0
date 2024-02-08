@@ -1,6 +1,5 @@
-import { Stack } from '@mui/material'
+import { Stack, Skeleton } from '@mui/material'
 import AssessmentDetailCard from '../../../components/common/AssessmentDetailCard'
-
 import Attandance from '../../../assets/svg/Attandance'
 import Coding from '../../../assets/svg/Coding'
 import Assessments from '../../../assets/svg/Assessments'
@@ -8,9 +7,55 @@ import AvgPerformance from '../../../assets/svg/AvgPerformance'
 import Asignment from '../../../assets/svg/Asignment'
 import { useTheme } from '@emotion/react'
 
-const DisplayAssessmentDetailCard = ({ analytics }) => {
+const DisplayAssessmentDetailCard = ({ analytics, loading, error }) => {
   const theme = useTheme()
   if (!analytics) return null
+  if (loading) {
+    return (
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        width={'100%'}
+      >
+        <Skeleton
+          variant="rounded"
+          sx={{
+            width: '150px',
+            height: '50px',
+          }}
+        ></Skeleton>
+        <Skeleton
+          variant="rounded"
+          sx={{
+            width: '150px',
+            height: '50px',
+          }}
+        ></Skeleton>
+        <Skeleton
+          variant="rounded"
+          sx={{
+            width: '150px',
+            height: '50px',
+          }}
+        ></Skeleton>
+        <Skeleton
+          variant="rounded"
+          sx={{
+            width: '150px',
+            height: '50px',
+          }}
+        ></Skeleton>
+        <Skeleton
+          variant="rounded"
+          sx={{
+            width: '150px',
+            height: '50px',
+          }}
+        ></Skeleton>
+      </Stack>
+    )
+  }
   return (
     <Stack
       direction="row"
