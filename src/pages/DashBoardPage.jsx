@@ -40,16 +40,28 @@ const DashBoardPage = () => {
   dispatch(setEmail({ email }))
   dispatch(setProfilePicture({ profile_picture }))
 
-  // if (loading) {
-  //   return <>loading...</>
-  // }
+  if (loading) {
+    return <>loading...</>
+  }
   return (
     <SideNavbarWithHeader
       name={name}
       email={email}
       profile_picture={profile_picture}
     >
-      <Typography>Dashboard</Typography>
+      <Typography
+        sx={{
+          fontSize: '20px',
+          fontWeight: 600,
+          lineHeight: '28px',
+          letterSpacing: '0em',
+          textAlign: 'left',
+          color: '#2E3A59',
+          padding: '12px 20px 0px 20px',
+        }}
+      >
+        Dashboard
+      </Typography>
       <DisplayAssessmentDetailCard
         analytics={analytics}
         loading={loading}
@@ -64,6 +76,7 @@ const DashBoardPage = () => {
         }}
       >
         <Stack
+          spacing={'21px'}
           sx={{
             width: 'calc(100% - 319px)',
           }}
@@ -72,6 +85,7 @@ const DashBoardPage = () => {
           <MuiCustomDatagrid />
         </Stack>
         <Stack
+          spacing={'30px'}
           sx={{
             width: '319px',
           }}
@@ -85,7 +99,19 @@ const DashBoardPage = () => {
           <LeaderBoard leaderboard={leaderboard} />
         </Stack>
       </Stack>
-      <Typography>Your courses</Typography>
+      <Typography
+        sx={{
+          fontSize: '20px',
+          fontWeight: 500,
+          lineHeight: '28px',
+          letterSpacing: '0em',
+          textAlign: 'left',
+          color: '#2E3A59',
+          padding: '28px 20px 0px 20px',
+        }}
+      >
+        Your courses
+      </Typography>
       <DisplayCourseCards courses={courses} />
     </SideNavbarWithHeader>
   )

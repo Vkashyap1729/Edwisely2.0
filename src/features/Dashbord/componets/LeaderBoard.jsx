@@ -31,7 +31,8 @@ const LeaderBoard = ({ leaderboard, width = '100%', height = '100%' }) => {
     rankedData.unshift(user)
   }
   return (
-    <Box
+    <Stack
+      spacing={'10px'}
       onClick={handleToggleDrawer}
       sx={{
         '&:hover': {
@@ -47,7 +48,7 @@ const LeaderBoard = ({ leaderboard, width = '100%', height = '100%' }) => {
         <Typography
           variant="h6"
           sx={{
-            color: 'var(--Basic-700, #2E3A59)',
+            color: '#2E3A59',
             fontSize: '20px',
             fontStyle: 'normal',
             fontWeight: 500,
@@ -137,7 +138,7 @@ const LeaderBoard = ({ leaderboard, width = '100%', height = '100%' }) => {
           </Stack>
         </CustomCard>
       </Drawer>
-    </Box>
+    </Stack>
   )
 }
 

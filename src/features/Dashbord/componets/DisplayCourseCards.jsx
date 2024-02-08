@@ -10,7 +10,7 @@ const DisplayCourseCards = ({ courses }) => {
         direction="row"
         spacing="22px"
         sx={{
-          padding: '28px 20px 20px 20px',
+          padding: '15px 20px 20px 20px',
         }}
       >
         {courses?.map((item, idx) => (

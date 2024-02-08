@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import RedColor from '../../../assets/svg/RedColor'
 import BlueColor from '../../../assets/svg/BlueColor'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Bar,
   BarChart,
@@ -49,16 +49,22 @@ const MuiCustomBarGraph = (recent_assessments) => {
   const obj = { ...recent_assessments }
   const data = obj.recent_assessments
   const subject = data?.subjects.map((item) => item.name)
-  const [subjectSelected, setSubjectSelected] = useState('')
+  const [subjectSelected, setSubjectSelected] = useState('Subject')
   const [index, setIndex] = useState(0)
-
-  if (!data) return null
   const handleSubjectSelectedChange = (event) => {
     setSubjectSelected(subject[event.target.value])
     setIndex(event.target.value)
   }
+
+  if (!data) return null
+
   return (
-    <>
+    <Box
+      sx={{
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
+        padding: '16px 23px 7px 23px',
+      }}
+    >
       <Stack
         direction={'row'}
         justifyContent={'space-between'}
@@ -66,11 +72,12 @@ const MuiCustomBarGraph = (recent_assessments) => {
       >
         <Typography
           sx={{
-            color: '#161C24',
             fontSize: '20px',
-            fontStyle: 'normal',
             fontWeight: 500,
             lineHeight: '28px',
+            letterSpacing: '0em',
+            textAlign: 'left',
+            color: '#161C24',
           }}
         >
           {data.title}
@@ -107,26 +114,31 @@ const MuiCustomBarGraph = (recent_assessments) => {
             >
               Unattempted
             </Typography>
-
-            <FormControl sx={{ m: 1, width: 120 }} size="small">
-              <InputLabel id="demo-select-small-label">Subject</InputLabel>
-              <Select
-                labelId="demo-select-small-label"
-                id="demo-select-small"
-                value={subjectSelected}
-                label="subjectSelected"
-                onChange={handleSubjectSelectedChange}
-              >
-                {subject.map((sub, idx) => {
-                  return (
-                    <MenuItem value={idx} key={idx}>
-                      {sub}
-                    </MenuItem>
-                  )
-                })}
-              </Select>
-            </FormControl>
           </Stack>
+          <FormControl
+            sx={{ m: 1, width: 120 }}
+            size="small"
+            variant="outlined"
+          >
+            <InputLabel id="demo-select-small-label">
+              {subjectSelected}
+            </InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={subjectSelected}
+              label={subjectSelected}
+              onChange={handleSubjectSelectedChange}
+            >
+              {subject.map((sub, idx) => {
+                return (
+                  <MenuItem value={idx} key={idx}>
+                    {sub}
+                  </MenuItem>
+                )
+              })}
+            </Select>
+          </FormControl>
         </Stack>
       </Stack>
       <Typography
@@ -140,7 +152,7 @@ const MuiCustomBarGraph = (recent_assessments) => {
       >
         Avg. performance
       </Typography>
-      <ResponsiveContainer width={'100%'} height={300}>
+      <ResponsiveContainer width={'100%'} height={250}>
         <BarChart
           data={data.subjects[index].tests}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
@@ -164,7 +176,26 @@ const MuiCustomBarGraph = (recent_assessments) => {
           />
         </BarChart>
       </ResponsiveContainer>
-    </>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <Typography
+          sx={{
+            color: '#637381',
+            fontSize: '14px',
+            fontStyle: 'normal',
+            fontWeight: 500,
+            lineHeight: '28px',
+            marginX: 'auto',
+          }}
+        >
+          {Object.entries(data)[2][1]}
+        </Typography>
+      </Box>
+    </Box>
   )
 }
 

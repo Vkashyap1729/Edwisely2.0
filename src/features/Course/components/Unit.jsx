@@ -162,7 +162,12 @@ const Units = (props) => {
           ) {
             return (
               <Accordion key={item[0]}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{
+                    color: ' #919EAB',
+                  }}
+                >
                   {item[1].topic_name}
                 </AccordionSummary>
                 <AccordionDetails>
@@ -185,7 +190,18 @@ const Units = (props) => {
                             width={'16px'}
                             height={'16px'}
                           />
-                          <Typography>{material.name}</Typography>
+                          <Typography
+                            sx={{
+                              color: '#161C24',
+                              fontSize: '14px',
+                              fontWeight: 400,
+                              lineHeight: '21px',
+                              letterSpacing: '0em',
+                              textAlign: 'left',
+                            }}
+                          >
+                            {material.name}
+                          </Typography>
                         </Stack>
                         <Stack
                           direction={'row'}
@@ -196,8 +212,19 @@ const Units = (props) => {
                           }}
                           className="isClickable"
                         >
-                          <Typography>Start</Typography>
-                          <ArrowForwardIcon />
+                          <Typography
+                            sx={{
+                              fontSize: '14px',
+                              fontWeight: 400,
+                              lineHeight: '21px',
+                              letterSpacing: '0em',
+                              textAlign: 'left',
+                              color: '#0B58F5',
+                            }}
+                          >
+                            Start
+                          </Typography>
+                          <ArrowForwardIcon sx={{ color: '#0B58F5' }} />
                         </Stack>
                       </Stack>
                     )

@@ -31,7 +31,7 @@ const LeaderRanking = ({ data, index, value, rank, col, fontcol, bgcol }) => {
             <Typography
               component={'p'}
               sx={{
-                color: 'var(--Basic-700, #2E3A59)',
+                color: '#212B36',
                 textLeadingTrim: 'both',
                 textEdge: 'cap',
                 fontSize: '16px',
@@ -52,7 +52,7 @@ const LeaderRanking = ({ data, index, value, rank, col, fontcol, bgcol }) => {
                 lineHeight: 'normal',
               }}
             >
-              {value}%
+              Avg: {value}%
             </Typography>
           </Stack>
         </Stack>
