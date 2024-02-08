@@ -1,6 +1,6 @@
 import React from 'react'
 import { TableRow } from '@mui/material'
-import { useTheme } from '@mui/styles'
+import { useTheme } from '@mui/material'
 import MuiCustomTableHeaderCellWithSortandSelect from './MuiCustomTableHeaderCellWithSortandSelect'
 
 const MuiCustomTableHeaderRowWithSortandSelect = ({

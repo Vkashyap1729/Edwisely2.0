@@ -9,22 +9,31 @@ import {
   Stack,
   Pagination,
 } from '@mui/material'
-import MuiCustomTableHeaderRowWithSortandSelect from '../../features/Assessment/components/AssessmentResultPage/MuiCustomTableHeaderRowWithSortandSelect'
-import MuiCustomStudentTableRow from '../../features/Assessment/components/AssessmentResultPage/MuiCustomStudentTableRow'
+import MuiCustomTableHeaderRowWithSortandSelect from './MuiCustomTableHeaderRowWithSortandSelect'
+import MuiCustomStudentTableRow from './MuiCustomStudentTableRow'
 
 const MuiCustomTableWithSortandSelect = (props) => {
   const {
     HeaderArr,
     tableData,
-    viewStudentResult,
     sortHandler,
     selectHandler,
     loading_reportData,
-    currentPageforTablepaginaton,
-    tablePaginationHandler,
     filtered_studentAssessmentList,
     submissionTypesToShowinStudentTable,
   } = props
+
+  const [page, setPage] = React.useState(1)
+  const rowsPerPage = 8
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage)
+  }
+
+  const paginatedRows = tableData?.slice(
+    (page - 1) * rowsPerPage,
+    page * rowsPerPage
+  )
 
   return (
     <>
@@ -34,11 +43,10 @@ const MuiCustomTableWithSortandSelect = (props) => {
           marginTop: '1.5rem',
         }}
       >
-        <Table sx={{ width: '100%' }} aria-label='sticky table'>
+        <Table sx={{ width: '100%' }} aria-label="sticky table">
           <TableHead
             sx={{
-              position: 'sticky',
-              top: '162px',
+              position: 'relative',
               zIndex: 100,
               background: 'white',
             }}
@@ -50,31 +58,29 @@ const MuiCustomTableWithSortandSelect = (props) => {
             />
           </TableHead>
           <TableBody>
-            {tableData?.map((stu, i) => (
-              <MuiCustomStudentTableRow
-                stu={stu}
-                key={i}
-                viewStudentResult={viewStudentResult}
-              />
+            {paginatedRows?.map((stu, i) => (
+              <MuiCustomStudentTableRow stu={stu} key={i} />
             ))}
           </TableBody>
         </Table>
       </Paper>
 
       <Stack
-        direction='row'
-        justifyContent='center'
-        alignItems='center'
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
         sx={{ marginTop: '1rem' }}
       >
         <Pagination
           count={Math.ceil(
             filtered_studentAssessmentList?.filter((stu) =>
               submissionTypesToShowinStudentTable.includes(stu.submission_type)
-            ).length / 15
+            ).length /
+              rowsPerPage +
+              2
           )}
-          page={currentPageforTablepaginaton}
-          onChange={tablePaginationHandler}
+          page={page}
+          onChange={handleChangePage}
         />
       </Stack>
     </>

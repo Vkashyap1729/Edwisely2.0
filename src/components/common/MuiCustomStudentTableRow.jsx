@@ -1,22 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import {
-  TableRow,
-  TableCell,
-  Typography,
-  IconButton,
-  Stack,
-} from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import { RightArrowIcon } from '../../../../assets/Svg/RightArrowIcon'
-import { ArrowUp } from '../../../../assets/Svg/ArrowUp'
+import { TableRow, TableCell, Typography, Stack } from '@mui/material'
+import { useTheme } from '@mui/material'
 
 function secondsToMinutes(seconds) {
   const minutes = Math.floor(seconds / 60)
   const remainingSeconds = seconds % 60
-  if (remainingSeconds > 0)
-    return `${minutes} minutes ${remainingSeconds} seconds`
-  return `${minutes} minutes`
+  if (remainingSeconds > 0) return `${minutes} h ${remainingSeconds} min`
+  return `${minutes} min`
 }
 
 function getInternetQuality(speed) {
@@ -27,12 +17,10 @@ function getInternetQuality(speed) {
 
 const MuiCustomStudentTableRow = ({ key, stu, viewStudentResult }) => {
   const theme = useTheme()
-  const { currentSectionTab } = useSelector((state) => state.assessment)
+  const currentSectionTab = 'tab1'
   return (
     <TableRow
-      onClick={() => {
-        viewStudentResult(stu)
-      }}
+      onClick={() => {}}
       key={key}
       sx={{
         cursor: 'pointer',
@@ -49,23 +37,30 @@ const MuiCustomStudentTableRow = ({ key, stu, viewStudentResult }) => {
       }}
     >
       <TableCell
-        scope='row'
+        scope="row"
         sx={{ border: 'none', borderRadius: '6px 0 0 6px' }}
       >
-        <Typography variant='body1' sx={{ color: theme.palette.grey[900] }}>
-          {stu.name}
+        <Typography
+          // variant='body1'
+          variant="tableStudentRowCell"
+          sx={{ color: theme.palette.grey[900] }}
+        >
+          {stu.subject}
         </Typography>
       </TableCell>
-      {currentSectionTab === 'tab1' ? (
-        <TableCell scope='row' sx={{ border: 'none' }}>
-          <Typography variant='body1' sx={{ color: theme.palette.grey[900] }}>
-            {stu.class_section_name}
-          </Typography>
-        </TableCell>
-      ) : null}
-      <TableCell scope='row' sx={{ border: 'none' }}>
+      <TableCell scope="row" sx={{ border: 'none' }}>
         <Typography
-          variant='body1'
+          // variant='body1'
+          variant="tableStudentRowCell"
+          sx={{ color: theme.palette.grey[900] }}
+        >
+          {secondsToMinutes(stu.total_timespent)}
+        </Typography>
+      </TableCell>
+      <TableCell scope="row" sx={{ border: 'none' }}>
+        <Typography
+          // variant='body1'
+          variant="tableStudentRowCell"
           sx={{
             color:
               stu.submission_type === 3
@@ -88,62 +83,42 @@ const MuiCustomStudentTableRow = ({ key, stu, viewStudentResult }) => {
             : 'Tabswitch'}
         </Typography>
       </TableCell>
-      <TableCell scope='row' sx={{ border: 'none' }}>
-        <Typography variant='body1' sx={{ color: theme.palette.grey[900] }}>
-          {stu.total_timespent} Min
-        </Typography>
-      </TableCell>
-      <TableCell scope='row' sx={{ border: 'none' }}>
-        <Typography variant='body1' sx={{ color: theme.palette.grey[900] }}>
-          {stu.effective_time_utilization}%
-        </Typography>
-      </TableCell>
-      <TableCell scope='row' sx={{ border: 'none' }}>
-        <Typography variant='body1' sx={{ color: theme.palette.grey[900] }}>
+
+      <TableCell scope="row" sx={{ border: 'none' }}>
+        <Typography
+          //  variant='body1'
+          variant="tableStudentRowCell"
+          sx={{ color: theme.palette.grey[900] }}
+        >
           {getInternetQuality(stu.internet_speed)}
         </Typography>
       </TableCell>
-      <TableCell scope='row' sx={{ border: 'none' }}>
-        <Typography variant='body1' sx={{ color: theme.palette.grey[900] }}>
-          {stu.submitted_at}
+
+      <TableCell scope="row" sx={{ border: 'none' }}>
+        <Typography
+          variant="tableStudentRowCell"
+          sx={{ color: theme.palette.grey[900] }}
+        >
+          {stu.rank}
         </Typography>
       </TableCell>
+
       <TableCell
-        scope='row'
+        scope="row"
         sx={{ border: 'none', borderRadius: '0 6px 6px 0' }}
       >
         <Stack
-          direction='row'
-          justifyContent='space-between'
-          alignItems='center'
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
         >
-          <Typography variant='body3' sx={{ color: theme.palette.grey[900] }}>
-            {stu.percentage_scored}%
-          </Typography>
-          <IconButton
-            aria-label='delete'
-            onClick={() => {
-              viewStudentResult(stu)
-            }}
-            sx={{
-              height: '24px',
-              width: '24px',
-              background: theme.palette.grey[500],
-              borderRadius: '6px',
-              '&:hover': {
-                background: theme.palette.grey[900], // Set your desired background color
-              },
-            }}
+          <Typography
+            //  variant='body3'
+            variant="tableStudentRowCell"
+            sx={{ color: theme.palette.grey[900] }}
           >
-            <ArrowUp
-              color={theme.palette.grey[100]}
-              sx={{
-                transform: 'rotate(90deg)',
-                fontSize: '20px',
-                fontWeight: 600,
-              }}
-            />
-          </IconButton>
+            {stu.percentage_scored == null ? 0 : stu.percentage_scored}%
+          </Typography>
         </Stack>
       </TableCell>
     </TableRow>

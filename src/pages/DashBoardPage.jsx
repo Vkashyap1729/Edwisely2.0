@@ -15,6 +15,7 @@ import {
   setProfilePicture,
 } from '../store/reducers/HOC.reducer'
 import { fetchData } from '../store/actions/dashboard.action'
+import MuiCustomTable from '../features/Dashbord/componets/MuiCustomTable'
 const DashBoardPage = () => {
   const dispatch = useDispatch()
   const { dashBoardData, loading, error } = useSelector(
@@ -82,7 +83,8 @@ const DashBoardPage = () => {
           }}
         >
           <MuiCustomBarGraph recent_assessments={recent_assessments} />
-          <MuiCustomDatagrid />
+          {/* <MuiCustomDatagrid /> */}
+          <MuiCustomTable />
         </Stack>
         <Stack
           spacing={'30px'}

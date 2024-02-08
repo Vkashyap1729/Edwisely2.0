@@ -90,6 +90,7 @@ const LeaderBoard = ({ leaderboard, width = '100%', height = '100%' }) => {
           style: {
             maxWidth: '364px',
             width: '100%',
+            padding: '21px 21px 21px 21px ',
           },
         }}
       >

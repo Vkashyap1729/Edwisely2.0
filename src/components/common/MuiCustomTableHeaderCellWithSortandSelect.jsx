@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 import {
   TableCell,
   Typography,
@@ -9,11 +8,9 @@ import {
   MenuItem,
   Checkbox,
 } from '@mui/material'
-import { useTheme } from '@mui/styles'
-import { ArrowDown } from '../../../../assets/Svg/ArrowDown'
-import { ArrowUp } from '../../../../assets/Svg/ArrowUp'
-import { DownArrow2 } from '../../../../assets/Svg/DownArrow2'
-
+import { useTheme } from '@mui/material'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 const options = [
   { id: 1, value: 'Timeout' },
   { id: 2, value: 'Interrupted' },
@@ -32,9 +29,7 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
   sortHandler,
   selectHandler,
 }) => {
-  const { submissionTypesToShowinStudentTable } = useSelector(
-    (state) => state.assessment
-  )
+  const submissionTypesToShowinStudentTable = [1, 2, 3]
   const [sortOrder, setSortOrder] = useState('asc')
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -46,12 +41,22 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
     setAnchorEl(null)
   }
 
-  const changeSortOrder = () => {
+  const changeSortOrder = (key) => {
+    if (key === 'Time Spent') {
+      key = 'total_timespent'
+    } else if (key === 'Submission Type') {
+      key = 'submission_type'
+    } else if (key === 'Internet Speed') {
+      key = 'internet_speed'
+    } else if (key === 'Mark') {
+      key = 'percentage_scored'
+    }
+
     if (sortOrder === 'asc') {
-      sortHandler('des', index)
+      sortHandler('des', key)
       setSortOrder('des')
     } else {
-      sortHandler('asc', index)
+      sortHandler('asc', key)
       setSortOrder('asc')
     }
   }
@@ -71,13 +76,14 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
         }}
       >
         <Stack
-          direction='row'
-          alignItems='center'
+          direction="row"
+          alignItems="center"
           gap={'0.5rem'}
           sx={{ height: '20px' }}
         >
           <Typography
-            variant='body2'
+            // variant='body2'
+            variant="tableHeaderCell"
             sx={{
               color: theme.palette.grey[500],
               lineHeight: '1rem',
@@ -87,28 +93,26 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
           </Typography>
           {isSortable ? (
             <IconButton
-              aria-label='delete'
+              aria-label="delete"
               sx={{ padding: '0' }}
-              onClick={changeSortOrder}
+              onClick={() => changeSortOrder(itemData.label)}
             >
               {sortOrder === 'asc' ? (
-                <ArrowUp fontsize='small' color={theme.palette.grey[500]} />
+                <ArrowUpwardIcon />
               ) : (
-                <ArrowDown fontsize='small' color={theme.palette.grey[500]} />
+                <ArrowDownwardIcon />
               )}
             </IconButton>
           ) : null}
           {isSelectable ? (
             <>
               <IconButton
-                aria-label='delete'
+                aria-label="delete"
                 sx={{ padding: '0' }}
                 onClick={handleClick}
-              >
-                <DownArrow2 color={theme.palette.grey[500]} />
-              </IconButton>
+              ></IconButton>
               <Menu
-                id='long-menu'
+                id="long-menu"
                 MenuListProps={{
                   'aria-labelledby': 'long-button',
                 }}
@@ -124,9 +128,9 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
               >
                 {options.map((option) => (
                   <MenuItem key={option} sx={{ padding: '0' }}>
-                    <Stack direction='row' alignItems='center'>
+                    <Stack direction="row" alignItems="center">
                       <Checkbox
-                        size='small'
+                        size="small"
                         sx={{
                           '&.Mui-checked': {
                             color: 'primary',
@@ -138,7 +142,7 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
                         )}
                       />
                       <Typography
-                        variant='body1'
+                        variant="body1"
                         sx={{ color: theme.palette.grey[900] }}
                       >
                         {option.value}
@@ -154,7 +158,7 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
                   sx={{ justifyContent: 'center' }}
                 >
                   <Typography
-                    variant='body1'
+                    variant="body1"
                     sx={{
                       color: theme.palette.info[700],
                       fontWeight: 500,

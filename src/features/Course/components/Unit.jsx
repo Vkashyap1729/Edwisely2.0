@@ -99,6 +99,9 @@ const Units = (props) => {
               alignItems: 'center',
               gap: '11.383px',
               flexShrink: 0,
+              '&:hover': {
+                border: '1px solid #919EAB',
+              },
             }}
           />
         </Stack>

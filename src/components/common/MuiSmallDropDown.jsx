@@ -57,24 +57,25 @@ export default function MuiSmallDropDown({
             border: 'none',
           },
         }}
-        size='small'
+        size="small"
         disabled={isDisabled}
       >
         <Select
-          labelId='dropdown-small'
-          id='dropdown-small'
+          labelId="dropdown-small"
+          id="dropdown-small"
           value={dropDownValue ? dropDownValue : ''}
           displayEmpty
           onChange={handleChange}
           disabled={isDisabled}
           sx={{
             padding: '5px',
-            '& .css-eghtey-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input': {
-              padding: '3px 8px',
-            },
+            '& .css-eghtey-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
+              {
+                padding: '3px 8px',
+              },
           }}
         >
-          <MenuItem disabled={true} value='' sx={{ display: 'none' }}>
+          <MenuItem disabled={true} value="" sx={{ display: 'none' }}>
             Select Option
           </MenuItem>
           {data &&
