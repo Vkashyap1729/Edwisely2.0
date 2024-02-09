@@ -71,7 +71,7 @@ const DashBoardPage = () => {
       <Stack
         direction={'row'}
         justifyContent={'space-between'}
-        spacing={'22px'}
+        // spacing={'22px'}
         sx={{
           padding: '28px 20px 20px 20px',
         }}
@@ -79,7 +79,12 @@ const DashBoardPage = () => {
         <Stack
           spacing={'21px'}
           sx={{
-            width: 'calc(100% - 319px)',
+            // width: 'calc(100% - 319px)',
+            width: '70%',
+            minWidth: '550px',
+            '@media (min-width: 1200px)': {
+              width: '100%',
+            },
           }}
         >
           <MuiCustomBarGraph recent_assessments={recent_assessments} />
@@ -89,7 +94,11 @@ const DashBoardPage = () => {
         <Stack
           spacing={'30px'}
           sx={{
-            width: '319px',
+            // width: '319px',
+            width: '30%',
+            // minWidth: '260px',
+            padding: '0 0 22px 22px ',
+            maxWidth: '319px',
           }}
         >
           <UserProfile
