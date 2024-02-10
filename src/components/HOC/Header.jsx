@@ -1,6 +1,9 @@
 import { Box, Stack, Typography, Popover } from '@mui/material'
 import { useState } from 'react'
 import LogoutIcon from '../../assets/svg/LogoutIcon'
+import { logout } from '../../store/reducers/login.reducer'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
 const Header = ({ name, email, profile_picture }) => {
   return (
     <Stack
@@ -36,9 +39,14 @@ const Header = ({ name, email, profile_picture }) => {
 }
 
 const MainHeaderImage = ({ name, email, profile_picture }) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null)
   const [logoutStroke, setLogoutStroke] = useState('#919EAB')
-  const handelLogout = () => {}
+  const handelLogout = () => {
+    dispatch(logout())
+    navigate('/')
+  }
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -131,6 +139,7 @@ const MainHeaderImage = ({ name, email, profile_picture }) => {
             className="isClickable"
             spacing={'7px'}
             direction={'row'}
+            onClick={handelLogout}
             alignItems={'center'}
             onMouseEnter={() => {
               setLogoutStroke('#637381')

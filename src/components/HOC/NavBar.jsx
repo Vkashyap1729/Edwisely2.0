@@ -5,7 +5,8 @@ import LogoutIcon from '../../assets/svg/LogoutIcon'
 import { useLocation, useNavigate } from 'react-router'
 import { Stack, Box } from '@mui/material'
 import { useEffect, useState } from 'react'
-
+import { logout } from '../../store/reducers/login.reducer'
+import { useDispatch } from 'react-redux'
 const NavBar = () => {
   const [dashboardStroke, setDashboardStroke] = useState('#919EAB')
   const [dashboardFill, setDashboardFill] = useState('')
@@ -13,6 +14,7 @@ const NavBar = () => {
   const [courseFill, setCourseFill] = useState('')
   const [logoutStroke, setLogoutStroke] = useState('#919EAB')
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const location = useLocation()
   const handelLogoClick = () => {
     window.location.reload()
@@ -25,7 +27,10 @@ const NavBar = () => {
       window.history.back()
     }
   }
-  const handelLogout = () => {}
+  const handelLogout = () => {
+    dispatch(logout())
+    navigate('/')
+  }
   useEffect(() => {
     if (location.pathname === '/dashboard') {
       setDashboardStroke('#0B58F5')

@@ -164,11 +164,11 @@ const MuiCustomTable = () => {
     fetchTableDataFromApi()
   }, [])
 
-  if (isLoading) {
-    return <AssessmentSkeleton />
-  }
+  // if (isLoading) {
+  //   return <AssessmentSkeleton />
+  // }
 
-  if (isError) {
+  if (isError || isLoading) {
     return (
       <Box
         sx={{

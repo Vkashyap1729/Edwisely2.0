@@ -16,9 +16,12 @@ import AssessmentDetailsSkeleton from '../features/Dashbord/componets/Assessment
 import CourseSkeleton from '../features/Dashbord/componets/CourseSkeleton'
 import LeaderBoardSkeleton from '../features/Dashbord/componets/LeaderBoardSkeleton'
 import AssessmentSkeleton from '../features/Dashbord/componets/AssessmentSkeleton'
-
+import { UseSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 const DashBoardPage = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
   const { dashBoardData, loading, error } = useSelector(
     (state) => state.dashboard
   )
@@ -50,6 +53,10 @@ const DashBoardPage = () => {
         <CommonErrorComponent />
       </>
     )
+  }
+
+  if (!isLoggedIn) {
+    navigate('/')
   }
   return (
     <SideNavbarWithHeader>

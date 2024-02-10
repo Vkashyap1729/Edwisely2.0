@@ -13,6 +13,8 @@ import { UseSelector } from 'react-redux'
 import CommonErrorComponent from '../components/common/CommonErrorComponent'
 const CoursePage = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
   const url = `https://stagingstudentpython.edwisely.com/reactProject/courseData?course_id=${id}`
   const dispatch = useDispatch()
   const { courseData, loading, error } = useSelector((state) => state.course)
@@ -25,7 +27,9 @@ const CoursePage = () => {
   const { name, tag, percentage, description, continue_reading, units } = {
     ...data,
   }
-
+  if (!isLoggedIn) {
+    navigate('/')
+  }
   if (loading) {
     return <p>Loading...</p>
   }

@@ -12,7 +12,7 @@ import {
   Typography,
   Box,
 } from '@mui/material'
-
+import { login } from '../../../store/reducers/login.reducer'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'
@@ -45,6 +45,7 @@ export default function Login() {
       .then((resposne) => resposne.json())
       .then((res) => {
         if (res.status === 200) {
+          dispatch(login())
           navigate('/dashboard')
           setHelper((prevState) => !prevState)
         } else {
