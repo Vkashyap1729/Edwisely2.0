@@ -1,4 +1,5 @@
 import {
+  Grid,
   FormControl,
   InputLabel,
   Input,
@@ -8,95 +9,125 @@ import {
   FormControlLabel,
   Button,
   Stack,
-  Box,
   Typography,
+  Box,
 } from '@mui/material'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
+
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { useDispatch, useSelector } from 'react-redux'
-const LoginForm = () => {
+import { useDispatch } from 'react-redux'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+
+export default function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
+  const [helper, setHelper] = useState(false)
   const navigate = useNavigate()
-  const loginUser = async (username, password) => {
-    try {
-      const response = await fetch(
-        `https://stagingstudentpython.edwisely.com/reactProject/loginUser?username=${username}&password=${password}`
-      )
-      if (response.status === 200) {
-        navigate('/dashboard')
-      } else {
-        alert('Invalid username or password')
-      }
-    } catch (error) {
-      console.error('Error during fetch:', error)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('rememberMeUsername')
+    const storedPassword = localStorage.getItem('rememberMePassword')
+
+    if (storedUsername && storedPassword) {
+      setUsername(storedUsername)
+      setPassword(storedPassword)
+      setRememberMe(true)
+    }
+  }, [])
+
+  const handleLogin = () => {
+    fetch(
+      `https://stagingstudentpython.edwisely.com/reactProject/loginUser?username=${username}&password=${password}`
+    )
+      .then((resposne) => resposne.json())
+      .then((res) => {
+        if (res.status === 200) {
+          navigate('/dashboard')
+          setHelper((prevState) => !prevState)
+        } else {
+          alert(res.message)
+          setHelper((prevState) => !prevState)
+        }
+      })
+  }
+  const handleCheckboxChange = () => {
+    setRememberMe(!rememberMe)
+
+    if (!rememberMe) {
+      localStorage.setItem('rememberMeUsername', username)
+      localStorage.setItem('rememberMePassword', password)
+      localStorage.setItem('rememberMe', 'true')
+    } else {
+      localStorage.removeItem('rememberMeUsername')
+      localStorage.removeItem('rememberMePassword')
+      localStorage.removeItem('rememberMe')
     }
   }
-  const handleLogin = () => {
-    loginUser(username, password)
-  }
+
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword)
   }
   return (
-    <Box
-      sx={{
-        flex: '1',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+    <Stack
+      alignItems={'center'}
+      justifyContent={'center'}
+      alignContent={'center'}
+      marginX={'auto'}
     >
       <Stack
-        spacing={'22px'}
         sx={{
           width: '381px',
-          height: '363px',
         }}
       >
-        <Box>
-          <Typography
-            sx={{
-              color: '#161C24',
-              fontSize: '48px',
-              fontStyle: 'normal',
-              fontWeight: 700,
-              lineHeight: 'normal',
-            }}
-          >
-            Login
-          </Typography>
-          <Typography
-            sx={{
-              color: '#161C24',
-              fontSize: '16px',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              lineHeight: 'normal',
-              my: '12px',
-            }}
-          >
-            Enter your account details
-          </Typography>
-        </Box>
+        <Typography
+          sx={{
+            color: '#161C24',
+            fontSize: '48px',
+            fontStyle: 'normal',
+            fontWeight: 700,
+            lineHeight: 'normal',
+            textAlign: 'start',
+          }}
+        >
+          Login
+        </Typography>
+        <Typography
+          sx={{
+            color: '#161C24',
+            fontSize: '16px',
+            fontStyle: 'normal',
+            fontWeight: 500,
+            lineHeight: 'normal',
+            my: '12px',
+            textAlign: 'start',
+          }}
+        >
+          Enter your account details
+        </Typography>
         <FormControl>
           <InputLabel htmlFor="name"></InputLabel>
           <Input
-            id="name"
             placeholder="Username"
+            type="Username"
             autoComplete="off"
+            helperText={helper && '*Enter Valid Username'}
             onChange={(e) => setUsername(e.target.value)}
           />
 
           <InputLabel htmlFor="password" />
           <Input
+            sx={{
+              marginTop: '20px',
+            }}
             type={showPassword ? 'text' : 'password'}
             id="password"
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             autoComplete="off"
+            helperText={helper && '*Enter Valid Username'}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton onClick={handleTogglePasswordVisibility} edge="end">
@@ -105,16 +136,19 @@ const LoginForm = () => {
               </InputAdornment>
             }
           />
+
           <FormControlLabel
-            control={<Checkbox id="rememberMe" />}
+            control={
+              <Checkbox id="rememberMe" onChange={handleCheckboxChange} />
+            }
             label="Remember Me"
           />
+
+          <Button variant="contained" color="primary" onClick={handleLogin}>
+            Login
+          </Button>
         </FormControl>
-        <Button variant="contained" color="primary" onClick={handleLogin}>
-          Login
-        </Button>
       </Stack>
-    </Box>
+    </Stack>
   )
 }
-export default LoginForm

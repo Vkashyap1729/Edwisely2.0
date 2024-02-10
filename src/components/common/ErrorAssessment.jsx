@@ -1,5 +1,5 @@
 import { Stack, Typography } from '@mui/material'
-import errorIcon from '../../../assets/svg/errorIcon.svg'
+import errorIcon from '../../assets/svg/errorIcon.svg'
 
 const ErrorAssessment = () => {
   return (

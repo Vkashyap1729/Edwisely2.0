@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import MuiCustomTableWithSortandSelect from '../../../components/common/MuiCustomTableWithSortandSelect'
-
+import ErrorAssessment from '../../../components/common/ErrorAssessment'
+import AssessmentSkeleton from './AssessmentSkeleton'
 const MuiCustomTable = () => {
   const [uniqueSemesters, setUniqueSemesters] = useState(null)
   const [tableAssessmentsData, setTableAssessmentsData] = useState(null)
   const [filteredData, setFilteredData] = useState(null)
   const [tableData, setTableData] = useState(null)
+  const [isError, setIsError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [currentSemester, setCurrentSemester] = useState({
     name: 'Semester 01',
     value: 1,
@@ -20,8 +23,10 @@ const MuiCustomTable = () => {
     try {
       const response = await fetch(url)
       const data = await response.json()
+      setIsLoading(false)
       return data
     } catch (error) {
+      setIsError(true)
       console.error('Error fetching data:', error)
       throw error
     }
@@ -159,11 +164,30 @@ const MuiCustomTable = () => {
     fetchTableDataFromApi()
   }, [])
 
+  if (isLoading) {
+    return <AssessmentSkeleton />
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
+          padding: '14px 14px 20px 14px',
+          minHeight: '535px',
+        }}
+      >
+        <ErrorAssessment />
+      </Box>
+    )
+  }
+
   return (
     <Box
       sx={{
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
         padding: '14px 14px 20px 14px',
+        minHeight: '535px ',
       }}
     >
       <Stack direction="row" justifyContent={'space-between'}>

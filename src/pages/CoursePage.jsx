@@ -10,6 +10,7 @@ import UnitsCard from '../components/common/UnitsCard'
 import CourseDescription from '../features/Course/components/CourseDescription'
 import DisplayUnitsCard from '../features/Course/components/DisplayUnitsCard'
 import { UseSelector } from 'react-redux'
+import CommonErrorComponent from '../components/common/CommonErrorComponent'
 const CoursePage = () => {
   const { id } = useParams()
   const url = `https://stagingstudentpython.edwisely.com/reactProject/courseData?course_id=${id}`
@@ -19,7 +20,6 @@ const CoursePage = () => {
     window.scrollTo(0, 0)
     dispatch(fetchData(url))
   }, [dispatch])
-  const { name1, email, profile_picture } = useSelector((state) => state.user)
   const { data } = { ...courseData }
   if (data == null) return null
   const { name, tag, percentage, description, continue_reading, units } = {
@@ -29,12 +29,15 @@ const CoursePage = () => {
   if (loading) {
     return <p>Loading...</p>
   }
+  if (error) {
+    return (
+      <>
+        <CommonErrorComponent />
+      </>
+    )
+  }
   return (
-    <SideNavbarWithHeader
-      name={name1}
-      email={email}
-      profile_picture={profile_picture}
-    >
+    <SideNavbarWithHeader>
       <Box
         sx={{
           width: '100%',

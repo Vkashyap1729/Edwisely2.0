@@ -9,13 +9,14 @@ import MuiCustomCalander from '../features/Dashbord/componets/MuiCustomCalander'
 import LeaderBoard from '../features/Dashbord/componets/LeaderBoard'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import {
-  setName,
-  setEmail,
-  setProfilePicture,
-} from '../store/reducers/HOC.reducer'
 import { fetchData } from '../store/actions/dashboard.action'
 import MuiCustomTable from '../features/Dashbord/componets/MuiCustomTable'
+import CommonErrorComponent from '../components/common/CommonErrorComponent'
+import AssessmentDetailsSkeleton from '../features/Dashbord/componets/AssessmentDetailsSkeleton'
+import CourseSkeleton from '../features/Dashbord/componets/CourseSkeleton'
+import LeaderBoardSkeleton from '../features/Dashbord/componets/LeaderBoardSkeleton'
+import AssessmentSkeleton from '../features/Dashbord/componets/AssessmentSkeleton'
+
 const DashBoardPage = () => {
   const dispatch = useDispatch()
   const { dashBoardData, loading, error } = useSelector(
@@ -36,20 +37,22 @@ const DashBoardPage = () => {
   } = {
     ...dashBoardData,
   }
+  useEffect(() => {
+    localStorage.setItem(
+      'userData',
+      JSON.stringify({ name, email, profile_picture })
+    )
+  }, [name, email, profile_picture])
 
-  dispatch(setName({ name }))
-  dispatch(setEmail({ email }))
-  dispatch(setProfilePicture({ profile_picture }))
-
-  if (loading) {
-    return <>loading...</>
+  if (error) {
+    return (
+      <>
+        <CommonErrorComponent />
+      </>
+    )
   }
   return (
-    <SideNavbarWithHeader
-      name={name}
-      email={email}
-      profile_picture={profile_picture}
-    >
+    <SideNavbarWithHeader>
       <Typography
         sx={{
           fontSize: '20px',
@@ -63,11 +66,11 @@ const DashBoardPage = () => {
       >
         Dashboard
       </Typography>
-      <DisplayAssessmentDetailCard
-        analytics={analytics}
-        loading={loading}
-        error={error}
-      />
+      {loading ? (
+        <AssessmentDetailsSkeleton />
+      ) : (
+        <DisplayAssessmentDetailCard analytics={analytics} />
+      )}
       <Stack
         direction={'row'}
         justifyContent={'space-between'}
@@ -89,7 +92,7 @@ const DashBoardPage = () => {
         >
           <MuiCustomBarGraph recent_assessments={recent_assessments} />
           {/* <MuiCustomDatagrid /> */}
-          <MuiCustomTable />
+          {loading ? <AssessmentSkeleton /> : <MuiCustomTable />}
         </Stack>
         <Stack
           spacing={'30px'}
@@ -107,7 +110,11 @@ const DashBoardPage = () => {
             profile_picture={profile_picture}
           />
           <MuiCustomCalander />
-          <LeaderBoard leaderboard={leaderboard} />
+          {loading ? (
+            <LeaderBoardSkeleton />
+          ) : (
+            <LeaderBoard leaderboard={leaderboard} />
+          )}
         </Stack>
       </Stack>
       <Typography
@@ -123,7 +130,7 @@ const DashBoardPage = () => {
       >
         Your courses
       </Typography>
-      <DisplayCourseCards courses={courses} />
+      {loading ? <CourseSkeleton /> : <DisplayCourseCards courses={courses} />}
     </SideNavbarWithHeader>
   )
 }

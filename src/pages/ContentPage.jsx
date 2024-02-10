@@ -73,7 +73,18 @@ const ContentPage = () => {
             <Box onClick={handleGoBack} className="isClickable">
               <ArrowBackIcon />
             </Box>
-            <Typography>{pdfCourseName}</Typography>
+            <Typography
+              sx={{
+                fontSize: '15px',
+                fontWeight: 500,
+                lineHeight: '23px',
+                letterSpacing: '0px',
+                textAlign: 'left',
+                color: '#252525',
+              }}
+            >
+              {pdfCourseName}
+            </Typography>
           </Stack>
           <Stack direction={'row'}>
             <Box
@@ -84,7 +95,17 @@ const ContentPage = () => {
                 justifyContent: 'space-around',
               }}
             >
-              <Typography>
+              <Typography
+                sx={{
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  lineHeight: '21px',
+                  letterSpacing: '0px',
+                  textAlign: 'center',
+                  color: '#252525',
+                }}
+                s
+              >
                 <CurrentPageLabel>
                   {(props: RenderCurrentPageLabelProps) => (
                     <Stack
@@ -169,7 +190,16 @@ const ContentPage = () => {
                     height: '24px',
                   }}
                 >
-                  <Typography>
+                  <Typography
+                    sx={{
+                      fontSize: '12px',
+                      fontWeight: 500,
+                      lineHeight: '18px',
+                      letterSpacing: '0px',
+                      textAlign: 'center',
+                      color: '#252525',
+                    }}
+                  >
                     <CurrentScale>
                       {(props: RenderCurrentScaleProps) => (
                         <>{`${Math.round(props.scale * 100)}%`}</>

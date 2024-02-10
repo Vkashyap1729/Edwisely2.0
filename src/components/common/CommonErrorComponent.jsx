@@ -1,10 +1,7 @@
-import SideNavbarWithHeader from '../components/HOC/SideNavbarWithHeader'
-import ErrorPage from '../components/common/ErrorPage'
-import { Stack, Typography, Box, IconButton } from '@mui/material'
-import MuiCustomTable from '../features/Dashbord/componets/MuiCustomTable'
-import ErrorIcon from '../assets/svg/CommonErrorIcon.svg'
+import { Stack, Typography, Box } from '@mui/material'
+import ErrorIcon from '../../assets/svg/CommonErrorIcon.svg'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-const TestElement = () => {
+const CommonErrorComponent = () => {
   return (
     <Box padding={'30px'}>
       <ArrowBackIcon
@@ -46,4 +43,4 @@ const TestElement = () => {
     </Box>
   )
 }
-export default TestElement
+export default CommonErrorComponent

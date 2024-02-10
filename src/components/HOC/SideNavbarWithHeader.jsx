@@ -1,10 +1,13 @@
 import { Stack, useTheme, Box } from '@mui/material'
 import NavBar from './NavBar'
 import Header from './Header'
-
-const SideNavbarWithHeader = ({ name, email, profile_picture, children }) => {
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { fetchData } from '../../store/actions/dashboard.action'
+const SideNavbarWithHeader = ({ children }) => {
+  const { name, email, profile_picture } =
+    JSON.parse(localStorage.getItem('userData')) || {}
   const theme = useTheme()
-
   return (
     <Stack
       sx={{
