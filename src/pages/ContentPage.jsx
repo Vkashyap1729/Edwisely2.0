@@ -285,7 +285,8 @@ const ContentPage = () => {
           sx={{
             maxWidth: '150px',
             width: '100%',
-            height: '588px',
+            // height: '588px',
+            height: '100%',
             overflow: 'auto',
             position: 'relative',
             margin: '32px',
