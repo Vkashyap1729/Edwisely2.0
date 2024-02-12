@@ -7,6 +7,7 @@ import { fetchData } from '../../store/actions/dashboard.action'
 const SideNavbarWithHeader = ({ children }) => {
   const { name, email, profile_picture } =
     JSON.parse(localStorage.getItem('userData')) || {}
+
   const theme = useTheme()
   return (
     <Stack

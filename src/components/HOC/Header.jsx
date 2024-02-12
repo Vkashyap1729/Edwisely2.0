@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, Popover, IconButton } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LogoutIcon from '../../assets/svg/LogoutIcon'
 import { logout } from '../../store/reducers/login.reducer'
 import { useDispatch } from 'react-redux'
@@ -47,13 +47,13 @@ const MainHeaderImage = ({ name, email, profile_picture }) => {
 
   const handleDrop = (acceptedFiles) => {
     const file = acceptedFiles[0]
-    // profile_picture = URL.createObjectURL(file)
+    profile_picture = URL.createObjectURL(file)
     setNewImage(URL.createObjectURL(file))
     setEditing(true)
-    // localStorage.setItem(
-    //   'userData',
-    //   JSON.stringify({ name, email, profile_picture })
-    // )
+    localStorage.setItem(
+      'userData',
+      JSON.stringify({ name, email, profile_picture })
+    )
   }
   const handleEditClick = () => {
     setEditing(true)
