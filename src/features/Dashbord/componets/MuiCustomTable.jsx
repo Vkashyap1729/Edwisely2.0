@@ -174,67 +174,112 @@ const MuiCustomTable = () => {
         sx={{
           boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
           padding: '14px 14px 20px 14px',
-          minHeight: '535px',
+          minHeight: '500px',
         }}
       >
+        <Stack
+          direction="row"
+          justifyContent={'space-between'}
+          alignItems={'center'}
+        >
+          <Typography variant="h5">Assessments</Typography>
+          <Stack
+            direction={'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
+          >
+            <Box
+              onClick={leftClickHandle}
+              sx={{
+                display: 'flex',
+                cursor: 'pointer',
+              }}
+            >
+              <ChevronLeftIcon />
+            </Box>
+            <Box display={'flex'} alignItems={'center'}>
+              <Typography variant="body9" display={'flex'}>
+                {currentSemester.name == 'Semester 00'
+                  ? 'All Semester'
+                  : currentSemester.name}
+              </Typography>
+            </Box>
+            <Box
+              onClick={rightClickHandle}
+              sx={{
+                display: 'flex',
+                cursor: 'pointer',
+              }}
+            >
+              <ChevronRightIcon />
+            </Box>
+          </Stack>
+        </Stack>
         <ErrorAssessment />
       </Box>
     )
   }
 
   return (
-    <Box
-      sx={{
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
-        padding: '14px 14px 20px 14px',
-      }}
-    >
-      <Stack
-        direction="row"
-        justifyContent={'space-between'}
-        alignItems={'center'}
+    <>
+      <Box
+        sx={{
+          padding: '14px 14px 20px 14px',
+        }}
+      ></Box>
+      <Box
+        sx={{
+          boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
+          padding: '14px 14px 20px 14px',
+        }}
       >
-        <Typography variant="h5">Assessments</Typography>
         <Stack
-          direction={'row'}
-          justifyContent={'center'}
+          direction="row"
+          justifyContent={'space-between'}
           alignItems={'center'}
         >
-          <Box
-            onClick={leftClickHandle}
-            sx={{
-              display: 'flex',
-              cursor: 'pointer',
-            }}
+          <Typography variant="h5">Assessments</Typography>
+          <Stack
+            direction={'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
           >
-            <ChevronLeftIcon />
-          </Box>
-          <Box display={'flex'} alignItems={'center'}>
-            <Typography variant="body9" display={'flex'}>
-              {currentSemester.name == 'Semester 00'
-                ? 'All Semester'
-                : currentSemester.name}
-            </Typography>
-          </Box>
-          <Box
-            onClick={rightClickHandle}
-            sx={{
-              display: 'flex',
-              cursor: 'pointer',
-            }}
-          >
-            <ChevronRightIcon />
-          </Box>
+            <Box
+              onClick={leftClickHandle}
+              sx={{
+                display: 'flex',
+                cursor: 'pointer',
+              }}
+            >
+              <ChevronLeftIcon />
+            </Box>
+            <Box display={'flex'} alignItems={'center'}>
+              <Typography variant="body9" display={'flex'}>
+                {currentSemester.name == 'Semester 00'
+                  ? 'All Semester'
+                  : currentSemester.name}
+              </Typography>
+            </Box>
+            <Box
+              onClick={rightClickHandle}
+              sx={{
+                display: 'flex',
+                cursor: 'pointer',
+              }}
+            >
+              <ChevronRightIcon />
+            </Box>
+          </Stack>
         </Stack>
-      </Stack>
-      <MuiCustomTableWithSortandSelect
-        HeaderArr={headerArr}
-        tableData={filteredData}
-        submissionTypesToShowinStudentTable={[1, 2, 3, 4]}
-        sortHandler={sortHandler}
-        filtered_studentAssessmentList={filteredData}
-      />
-    </Box>
+        <MuiCustomTableWithSortandSelect
+          HeaderArr={headerArr}
+          tableData={filteredData}
+          submissionTypesToShowinStudentTable={[1, 2, 3, 4]}
+          sortHandler={sortHandler}
+          filtered_studentAssessmentList={filteredData}
+        />
+      </Box>
+    </>
   )
 }
 
