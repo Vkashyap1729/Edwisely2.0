@@ -26,11 +26,9 @@ export default function Login() {
   const [helper, setHelper] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
   useEffect(() => {
-    const storedUsername = localStorage.getItem('rememberMeUsername')
-    const storedPassword = localStorage.getItem('rememberMePassword')
-
+    const storedUsername = localStorage.getItem('username')
+    const storedPassword = localStorage.getItem('password')
     if (storedUsername && storedPassword) {
       setUsername(storedUsername)
       setPassword(storedPassword)
@@ -55,12 +53,10 @@ export default function Login() {
       })
   }
   const handleCheckboxChange = () => {
-    setRememberMe(!rememberMe)
-
-    if (!rememberMe) {
-      localStorage.setItem('rememberMeUsername', username)
-      localStorage.setItem('rememberMePassword', password)
-      localStorage.setItem('rememberMe', 'true')
+    if (rememberMe) {
+      localStorage.setItem('username', username)
+      localStorage.setItem('password', password)
+      setRememberMe(!rememberMe)
     } else {
       localStorage.removeItem('rememberMeUsername')
       localStorage.removeItem('rememberMePassword')
@@ -113,6 +109,7 @@ export default function Login() {
           <Input
             placeholder="Username"
             type="Username"
+            value={username}
             autoComplete="off"
             helperText={helper && '*Enter Valid Username'}
             onChange={(e) => setUsername(e.target.value)}
@@ -125,6 +122,7 @@ export default function Login() {
             }}
             type={showPassword ? 'text' : 'password'}
             id="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             autoComplete="off"
