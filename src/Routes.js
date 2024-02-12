@@ -5,6 +5,7 @@ import DashBoardPage from './pages/DashBoardPage'
 import LoginPage from './pages/LoginPage'
 import CoursePage from './pages/CoursePage'
 import ContentPage from './pages/ContentPage'
+import CommonErrorComponent from './components/common/CommonErrorComponent'
 
 const AppRouter = () => {
   return (
@@ -15,6 +16,7 @@ const AppRouter = () => {
         <Route path="/dashboard" element={<DashBoardPage />} />
         <Route path="/course/:id" element={<CoursePage />} />
         <Route path="/content/:url/:courseName" element={<ContentPage />} />
+        <Route path="*" element={<CommonErrorComponent />} />
       </Routes>
     </Router>
   )

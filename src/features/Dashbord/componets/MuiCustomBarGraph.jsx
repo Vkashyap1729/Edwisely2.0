@@ -17,7 +17,6 @@ import {
   XAxis,
   ResponsiveContainer,
 } from 'recharts'
-
 const CustomizedLabel = ({ x, y, value }) => {
   const col = value === 0 ? '#F44336' : '#0B58F5'
   const fontSize = 14
@@ -119,11 +118,7 @@ const MuiCustomBarGraph = (recent_assessments) => {
             </Typography>
           </Stack>
 
-          <FormControl
-            sx={{ m: 1, width: 120 }}
-            size="small"
-            variant="standard"
-          >
+          <FormControl sx={{ m: 1, width: 120 }} size="small">
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"

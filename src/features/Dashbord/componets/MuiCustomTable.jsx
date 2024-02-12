@@ -15,8 +15,8 @@ const MuiCustomTable = () => {
   const [isError, setIsError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [currentSemester, setCurrentSemester] = useState({
-    name: 'Semester 01',
-    value: 1,
+    name: 'All Semesters',
+    value: 0,
   })
 
   const fetchData = async (url) => {
@@ -154,10 +154,7 @@ const MuiCustomTable = () => {
           },
         ]
         setUniqueSemesters(semesters)
-        let filteringData = rankedTableData.filter((item) => {
-          return item.semester === currentSemester.value
-        })
-        setFilteredData(filteringData)
+        setFilteredData(rankedTableData)
       } catch (error) {
         throw error
       }
@@ -169,7 +166,7 @@ const MuiCustomTable = () => {
   if (
     isError ||
     isLoading ||
-    tableAssessmentsData == null ||
+    tableAssessmentsData?.length == 0 ||
     tableData == null
   ) {
     return (
@@ -190,7 +187,6 @@ const MuiCustomTable = () => {
       sx={{
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
         padding: '14px 14px 20px 14px',
-        minHeight: '535px ',
       }}
     >
       <Stack

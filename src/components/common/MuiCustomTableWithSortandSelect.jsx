@@ -76,6 +76,7 @@ const MuiCustomTableWithSortandSelect = (props) => {
           )}
           page={page}
           onChange={handleChangePage}
+          color="primary"
         />
       </Stack>
     </>

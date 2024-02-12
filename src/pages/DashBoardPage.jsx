@@ -81,13 +81,12 @@ const DashBoardPage = () => {
       <Stack
         direction={'row'}
         justifyContent={'space-between'}
-        // spacing={'22px'}
         sx={{
           padding: '28px 20px 20px 20px',
         }}
       >
         <Stack
-          spacing={'21px'}
+          justifyContent={'space-evenly'}
           sx={{
             // width: 'calc(100% - 319px)',
             width: '70%',
