@@ -31,6 +31,11 @@ const Units = (props) => {
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value)
   }
+  const [expandedAccordion, setExpandedAccordion] = useState(null)
+
+  const handleChangeAccordion = (panel) => (event, isExpanded) => {
+    setExpandedAccordion(isExpanded ? panel : null)
+  }
   return (
     <Box
       sx={{
@@ -164,7 +169,11 @@ const Units = (props) => {
             item[1].topic_name.toLowerCase().includes(searchInput.toLowerCase())
           ) {
             return (
-              <Accordion key={item[0]}>
+              <Accordion
+                key={item[0]}
+                expanded={expandedAccordion === item[0]}
+                onChange={handleChangeAccordion(item[0])}
+              >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   sx={{
