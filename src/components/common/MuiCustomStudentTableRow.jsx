@@ -10,7 +10,7 @@ function secondsToMinutes(seconds) {
 }
 
 function getInternetQuality(speed) {
-  if (speed >= 1 && speed <= 3) return 'Poor'
+  if ((speed >= 1 && speed <= 3) || speed == null) return 'Poor'
   else if (speed >= 4 && speed <= 7) return 'Average'
   else return 'Excellent'
 }
