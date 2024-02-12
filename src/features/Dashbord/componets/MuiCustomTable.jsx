@@ -166,7 +166,12 @@ const MuiCustomTable = () => {
     fetchTableDataFromApi()
   }, [])
 
-  if (isError || isLoading || tableAssessmentsData == null) {
+  if (
+    isError ||
+    isLoading ||
+    tableAssessmentsData == null ||
+    tableData == null
+  ) {
     return (
       <Box
         sx={{
@@ -188,7 +193,11 @@ const MuiCustomTable = () => {
         minHeight: '535px ',
       }}
     >
-      <Stack direction="row" justifyContent={'space-between'}>
+      <Stack
+        direction="row"
+        justifyContent={'space-between'}
+        alignItems={'center'}
+      >
         <Typography variant="h5">Assessments</Typography>
         <Stack
           direction={'row'}
@@ -198,13 +207,14 @@ const MuiCustomTable = () => {
           <Box
             onClick={leftClickHandle}
             sx={{
+              display: 'flex',
               cursor: 'pointer',
             }}
           >
             <ChevronLeftIcon />
           </Box>
           <Box display={'flex'} alignItems={'center'}>
-            <Typography variant="body9">
+            <Typography variant="body9" display={'flex'}>
               {currentSemester.name == 'Semester 00'
                 ? 'All Semester'
                 : currentSemester.name}
@@ -213,6 +223,7 @@ const MuiCustomTable = () => {
           <Box
             onClick={rightClickHandle}
             sx={{
+              display: 'flex',
               cursor: 'pointer',
             }}
           >
