@@ -138,7 +138,11 @@ export default function Login() {
 
           <FormControlLabel
             control={
-              <Checkbox id="rememberMe" onChange={handleCheckboxChange} />
+              <Checkbox
+                id="rememberMe"
+                value={rememberMe}
+                onChange={handleCheckboxChange}
+              />
             }
             label="Remember Me"
           />
