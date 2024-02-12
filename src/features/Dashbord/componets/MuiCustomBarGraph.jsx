@@ -49,7 +49,10 @@ const MuiCustomBarGraph = (recent_assessments) => {
   const obj = { ...recent_assessments }
   const data = obj.recent_assessments
   const subject = data?.subjects.map((item) => item.name)
-  const [subjectSelected, setSubjectSelected] = useState('Subject')
+
+  const [subjectSelected, setSubjectSelected] = useState(
+    subject ? subject[0] : ''
+  )
   const [index, setIndex] = useState(0)
   const handleSubjectSelectedChange = (event) => {
     setSubjectSelected(subject[event.target.value])
@@ -115,28 +118,31 @@ const MuiCustomBarGraph = (recent_assessments) => {
               Unattempted
             </Typography>
           </Stack>
+
           <FormControl
             sx={{ m: 1, width: 120 }}
             size="small"
-            variant="outlined"
+            variant="standard"
           >
-            <InputLabel id="demo-select-small-label">
-              {subjectSelected}
-            </InputLabel>
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
               value={subjectSelected}
-              label={subjectSelected}
               onChange={handleSubjectSelectedChange}
+              displayEmpty
+              renderValue={(selected) => {
+                if (selected == '') {
+                  return subject[0]
+                }
+                const selectedSubject = selected
+                return selectedSubject
+              }}
             >
-              {subject.map((sub, idx) => {
-                return (
-                  <MenuItem value={idx} key={idx}>
-                    {sub}
-                  </MenuItem>
-                )
-              })}
+              {subject.map((sub, idx) => (
+                <MenuItem value={idx} key={idx}>
+                  {sub}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Stack>

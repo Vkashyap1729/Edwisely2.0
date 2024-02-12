@@ -48,7 +48,7 @@ const NavBar = () => {
       height={'100%'}
       alignItems={'center'}
       sx={{
-        padding: '22px',
+        paddingTop: '22px',
       }}
     >
       <Stack spacing={'32px'}>

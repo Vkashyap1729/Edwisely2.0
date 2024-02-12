@@ -1,9 +1,12 @@
-import { Box, Stack, Typography, Popover } from '@mui/material'
+import { Box, Stack, Typography, Popover, IconButton } from '@mui/material'
 import { useState } from 'react'
 import LogoutIcon from '../../assets/svg/LogoutIcon'
 import { logout } from '../../store/reducers/login.reducer'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
+import AvatarEditor from 'react-avatar-editor'
+import Dropzone from 'react-dropzone'
+import ImageEditIconProfilePicture from '../../assets/svg/ImageEditIconProfilePicture'
 const Header = ({ name, email, profile_picture }) => {
   return (
     <Stack
@@ -39,6 +42,22 @@ const Header = ({ name, email, profile_picture }) => {
 }
 
 const MainHeaderImage = ({ name, email, profile_picture }) => {
+  const [editing, setEditing] = useState(false)
+  const [newImage, setNewImage] = useState(profile_picture)
+
+  const handleDrop = (acceptedFiles) => {
+    const file = acceptedFiles[0]
+    // profile_picture = URL.createObjectURL(file)
+    setNewImage(URL.createObjectURL(file))
+    setEditing(true)
+    // localStorage.setItem(
+    //   'userData',
+    //   JSON.stringify({ name, email, profile_picture })
+    // )
+  }
+  const handleEditClick = () => {
+    setEditing(true)
+  }
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null)
@@ -111,7 +130,35 @@ const MainHeaderImage = ({ name, email, profile_picture }) => {
             boxShadow: '10px 10px 32px 0px #1616160A',
           }}
         >
-          <img src={profile_picture} alt={name} style={styles} />
+          <Box style={{ position: 'relative', display: 'flex' }}>
+            <img src={newImage} alt={name} style={styles} />
+            <Dropzone
+              onDrop={handleDrop}
+              style={{
+                display: editing ? 'block' : 'none',
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                zIndex: 1,
+              }}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <Box
+                  {...getRootProps()}
+                  style={{ width: '100%', height: '100%' }}
+                >
+                  <input {...getInputProps()} />
+                  <Box
+                    className="isClickable"
+                    onClick={handleEditClick}
+                    style={{ position: 'absolute', bottom: '0', right: '0' }}
+                  >
+                    <ImageEditIconProfilePicture />
+                  </Box>
+                </Box>
+              )}
+            </Dropzone>
+          </Box>
           <Typography
             sx={{
               color: '#212B36',

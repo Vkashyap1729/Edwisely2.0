@@ -94,6 +94,7 @@ const MuiCustomTable = () => {
         value: prevSemester.value - 1,
       }))
       handleSemesterChange(currentSemester.value - 1)
+      // console.log(filteredData)
     }
   }
 
@@ -104,6 +105,7 @@ const MuiCustomTable = () => {
         value: prevSemester.value + 1,
       }))
       handleSemesterChange(currentSemester.value + 1)
+      // console.log(filteredData)
     }
   }
 
@@ -163,10 +165,6 @@ const MuiCustomTable = () => {
 
     fetchTableDataFromApi()
   }, [])
-
-  // if (isLoading) {
-  //   return <AssessmentSkeleton />
-  // }
 
   if (isError || isLoading) {
     return (

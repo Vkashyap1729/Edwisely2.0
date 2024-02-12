@@ -29,7 +29,6 @@ const MuiCustomTableWithSortandSelect = (props) => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
   }
-
   const paginatedRows = tableData?.slice(
     (page - 1) * rowsPerPage,
     page * rowsPerPage
@@ -73,11 +72,7 @@ const MuiCustomTableWithSortandSelect = (props) => {
       >
         <Pagination
           count={Math.ceil(
-            filtered_studentAssessmentList?.filter((stu) =>
-              submissionTypesToShowinStudentTable.includes(stu.submission_type)
-            ).length /
-              rowsPerPage +
-              2
+            filtered_studentAssessmentList?.length / rowsPerPage
           )}
           page={page}
           onChange={handleChangePage}

@@ -25,12 +25,10 @@ const MuiCustomStudentTableRow = ({ key, stu, viewStudentResult }) => {
       sx={{
         cursor: 'pointer',
         background:
-          stu.submission_type === 'not attempted'
-            ? theme.palette.error[200]
-            : '',
+          stu.submission_type === null ? theme.palette.error[200] : '',
         '&:hover': {
           background:
-            stu.submission_type === 'not attempted'
+            stu.submission_type === 'Not Attempted'
               ? theme.palette.error[300]
               : theme.palette.grey[100], // Set your desired background color
         },
@@ -59,7 +57,7 @@ const MuiCustomStudentTableRow = ({ key, stu, viewStudentResult }) => {
       </TableCell>
       <TableCell scope="row" sx={{ border: 'none' }}>
         <Typography
-          // variant='body1'
+          variant="body1"
           variant="tableStudentRowCell"
           sx={{
             color:
@@ -80,7 +78,9 @@ const MuiCustomStudentTableRow = ({ key, stu, viewStudentResult }) => {
             ? 'Interrupted'
             : stu.submission_type === 3
             ? 'On Submit'
-            : 'Tabswitch'}
+            : stu.submission_type === 4
+            ? 'Tab switch'
+            : 'Not Attempted'}
         </Typography>
       </TableCell>
 
@@ -105,7 +105,10 @@ const MuiCustomStudentTableRow = ({ key, stu, viewStudentResult }) => {
 
       <TableCell
         scope="row"
-        sx={{ border: 'none', borderRadius: '0 6px 6px 0' }}
+        sx={{
+          border: 'none',
+          borderRadius: '0 6px 6px 0',
+        }}
       >
         <Stack
           direction="row"
